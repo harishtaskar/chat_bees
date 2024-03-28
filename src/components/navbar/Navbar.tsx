@@ -1,11 +1,11 @@
-import React from 'react'
+"use client";
+import React from "react";
+import "./index.scss";
 
-type Props = {}
+type Props = {};
 
 const Navbar = (props: Props) => {
-  return (
-    <div>Navbar</div>
-  )
-}
+  return <div className="navbar">Navbar</div>;
+};
 
-export default Navbar
+export default Navbar;

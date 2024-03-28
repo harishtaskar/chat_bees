@@ -1,0 +1,14 @@
+.chat_layout {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+
+    &__main {
+        @extend .chat_layout;
+        flex-direction: column;
+        height: fit-content;
+
+        &__screen {}
+    }
+
+}

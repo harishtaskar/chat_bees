@@ -1,4 +1,5 @@
 import Navbar from "@/components/navbar/Navbar";
+import Sidenav from "@/components/sidenav/Sidenav";
 import React from "react";
 
 type Props = {
@@ -7,9 +8,12 @@ type Props = {
 
 const ChatLayout = ({ children }: Props) => {
   return (
-    <div>
-      <Navbar />
-      <div>{children}</div>
+    <div className="chat_layout">
+      <Sidenav />
+      <div className="chat_layout__main">
+        <Navbar />
+        <div className="chat_layout__main__screen">{children}</div>
+      </div>
     </div>
   );
 };
