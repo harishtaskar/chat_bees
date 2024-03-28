@@ -1,0 +1,21 @@
+.input {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: calc(100% - 40px);
+    padding: 10px 20px;
+
+    &__send_btn {
+        width: 46px;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        color: var(--white);
+        background-color: var(--primary-color);
+        border-radius: 8px;
+    }
+}

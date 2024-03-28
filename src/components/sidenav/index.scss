@@ -1,7 +1,7 @@
 .sidenav {
     width: 20%;
     height: 100vh;
-    box-shadow: inset 0px 0px 0px 1px var(--muted-border);
+    border-right: 1px solid var(--muted-border);
 
     &__logo {
         display: flex;
