@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import "./index.scss";
 import UserComponent from "@/components/user/UserComponent";
 import users from "@/assets/jsons/users.json";
@@ -9,7 +9,13 @@ import InputComponent from "@/components/chat/InputComponent";
 type Props = {};
 
 const Chat = ({}: Props) => {
-  const [active, setActive] = useState<string>("");
+  const [active, setActive] = useState<string>(users[0]?.id);
+
+  const activeUser = useMemo(() => {
+    return users?.filter((item) => {
+      return item?.id === active;
+    });
+  }, [active]);
 
   return (
     <div className="chat">
@@ -18,7 +24,9 @@ const Chat = ({}: Props) => {
           <div className="chat__messeges__title">
             Messeges <p className="chat__messeges__title__badge">23</p>
           </div>
-          <span className="chat__messeges__title">Btn</span>
+          <button className="chat__messeges__btn">
+            <i className="ri-add-circle-fill ri-2x" />
+          </button>
         </div>
         <ul className="chat__messeges__list">
           {users?.map((user) => {
@@ -39,7 +47,7 @@ const Chat = ({}: Props) => {
         </ul>
       </div>
       <div className="chat__chat_container">
-        <ChatNavbar />
+        <ChatNavbar user={activeUser[0]} />
         <InputComponent />
       </div>
     </div>

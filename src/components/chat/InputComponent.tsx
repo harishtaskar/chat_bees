@@ -15,7 +15,7 @@ const InputComponent = (props: Props) => {
         style={{ backgroundColor: "var(--white)" }}
       />
       <button className="input__send_btn">
-        <i className="ri-send-plane-fill ri-xl" />
+        <i className="ri-send-plane-2-fill ri-xl" />
       </button>
     </div>
   );
