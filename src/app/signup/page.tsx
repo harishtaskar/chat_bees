@@ -85,7 +85,7 @@ const Signup = (props: Props) => {
           width: "100%",
           position: "relative",
           borderRadius: "12px",
-          marginTop: "40px",
+          margin: "30px 20px",
         }}
       />
     </div>

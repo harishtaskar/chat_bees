@@ -9,7 +9,7 @@ import Link from "next/link";
 
 type Props = {};
 
-const Signin = (props: Props) => {
+const Signin = ({}: Props) => {
   const renderBody = useMemo(() => {
     return (
       <div className="page__body">
@@ -55,16 +55,17 @@ const Signin = (props: Props) => {
         body={renderBody}
         closeBtn={false}
         backgroundstyle={{
-          width: "fit-content",
+          width: "100%",
           minHeight: "fit-content",
           backgroundColor: "transparent",
           position: "relative",
         }}
         modalstyle={{
           width: "100%",
+          maxWidth: "480px",
           position: "relative",
           borderRadius: "12px",
-          marginTop: "40px",
+          margin: "30px 20px",
         }}
       />
     </div>

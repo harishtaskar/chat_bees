@@ -2,19 +2,26 @@ import React from "react";
 import InputText from "../shared/inputText";
 import "./index.scss";
 
-type Props = {};
+type Props = {
+  onChange: Function;
+  onSendMsg: React.MouseEventHandler<HTMLButtonElement>;
+  value: string;
+  onKeyDown: React.KeyboardEventHandler<HTMLInputElement>;
+};
 
-const InputComponent = (props: Props) => {
+const InputComponent = ({ onChange, onSendMsg, value, onKeyDown }: Props) => {
   return (
     <div className="input">
       <InputText
         id="input"
-        onChange={() => {}}
+        onChange={onChange}
         placeHolder="Type a message..."
         require={false}
         style={{ backgroundColor: "var(--white)" }}
+        value={value}
+        onKeyDown={onKeyDown}
       />
-      <button className="input__send_btn">
+      <button className="input__send_btn" onClick={onSendMsg}>
         <i className="ri-send-plane-2-fill ri-xl" />
       </button>
     </div>

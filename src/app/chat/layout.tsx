@@ -1,6 +1,7 @@
 import Navbar from "@/components/navbar/Navbar";
 import Sidenav from "@/components/sidenav/Sidenav";
 import React from "react";
+import "./index.scss";
 
 type Props = {
   children: React.ReactNode;

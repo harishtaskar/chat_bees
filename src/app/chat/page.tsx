@@ -1,54 +1,86 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import "./index.scss";
-import UserComponent from "@/components/user/UserComponent";
 import users from "@/assets/jsons/users.json";
 import ChatNavbar from "@/components/navbar/ChatNavbar";
 import InputComponent from "@/components/chat/InputComponent";
+import useSocket from "@/hooks/useSocket";
+import ChatCanvas from "@/components/chat/ChatCanvas";
+import { messagesAtom } from "@/state/SocketProvider";
+import { useRecoilState } from "recoil";
+import { currentDateTime } from "../utils/DateTime";
+import ChatMessages from "@/components/chat/ChatMessages";
 
 type Props = {};
 
 const Chat = ({}: Props) => {
+  const { sendMessage } = useSocket();
+  const [message, setMessage] = useState<string>("");
+  const [messages, setMessages] = useRecoilState(messagesAtom);
   const [active, setActive] = useState<string>(users[0]?.id);
-
+  const { date, time } = currentDateTime();
   const activeUser = useMemo(() => {
     return users?.filter((item) => {
       return item?.id === active;
     });
   }, [active]);
 
+  const inputChangeHandler = useCallback((id: string, value: string) => {
+    setMessage(value);
+  }, []);
+
+  const sendInputMessage = useCallback(() => {
+    if (message) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          self: message?.length % 2 === 0,
+          message: message,
+          time: time,
+          date: date,
+        },
+      ]);
+      setMessage("");
+    }
+  }, [message]);
+
+  const keyDownHandler = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter" && e.shiftKey) {
+        return;
+      } else if (e.key === "Enter") {
+        sendInputMessage();
+      }
+    },
+    [message]
+  );
+
+  const sendMsgHandler = useCallback(() => {
+    sendInputMessage();
+  }, [message]);
+
+  const userClickHandler = useCallback((id: string) => {
+    setActive(id);
+  }, []);
+
   return (
     <div className="chat">
-      <div className="chat__messeges">
-        <div className="chat__messeges__topbar">
-          <div className="chat__messeges__title">
-            Messeges <p className="chat__messeges__title__badge">23</p>
-          </div>
-          <button className="chat__messeges__btn">
-            <i className="ri-add-circle-fill ri-2x" />
-          </button>
-        </div>
-        <ul className="chat__messeges__list">
-          {users?.map((user) => {
-            return (
-              <li
-                className="chat__messeges__list__item"
-                onClick={() => setActive(user.id)}
-                key={user.id}
-              >
-                <UserComponent
-                  isActive={user.id === active}
-                  designation={user.designation}
-                  username={user.username}
-                />
-              </li>
-            );
-          })}
-        </ul>
+      <div className={"chat__message_container"}>
+        <ChatMessages
+          users={users}
+          active={active}
+          onUserClick={userClickHandler}
+        />
       </div>
       <div className="chat__chat_container">
         <ChatNavbar user={activeUser[0]} />
-        <InputComponent />
+        <ChatCanvas messages={messages} />
+        <InputComponent
+          onChange={inputChangeHandler}
+          onSendMsg={sendMsgHandler}
+          value={message}
+          onKeyDown={keyDownHandler}
+        />
       </div>
     </div>
   );

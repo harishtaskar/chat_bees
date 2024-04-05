@@ -1,10 +1,10 @@
 import React from "react";
-import "../index.scss";
+import "./index.scss";
 
 type Props = {};
 
 const Profile = ({}: Props) => {
-  return <div>Profile</div>;
+  return <div className="profile">Profile</div>;
 };
 
 export default Profile;

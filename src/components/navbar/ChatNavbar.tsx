@@ -8,7 +8,7 @@ type Props = {
 
 const ChatNavbar = ({ user }: Props) => {
   return (
-    <div className="navbar">
+    <div className="chat_navbar">
       {
         <UserComponent
           isActive={false}

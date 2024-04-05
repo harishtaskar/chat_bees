@@ -20,6 +20,7 @@ type Props = {
   fileloading?: boolean;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   autoComplete?: "on" | "off";
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 };
 
 const InputText = ({
@@ -41,6 +42,7 @@ const InputText = ({
   fileloading = false,
   inputTextStyle,
   autoComplete = "on",
+  onKeyDown,
 }: Props) => {
   const [type, setType] = useState<string>(inputType || "text");
 
@@ -114,6 +116,7 @@ const InputText = ({
           minLength={minLength}
           maxLength={maxLength}
           autoComplete={autoComplete}
+          onKeyDown={onKeyDown}
         />
         {password && renderEyeButton}
       </div>

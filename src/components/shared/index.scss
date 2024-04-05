@@ -1,17 +1,29 @@
 .logo {
     height: fit-content;
-    font-size: 34px;
+    font-size: calc(24px + 0.5vw);
     font-weight: 800;
+    white-space: nowrap;
 
     &__bee_logo {
-        width: fit-content;
         margin-right: 4px;
+        width: 30px;
+        height: 30px;
+
+        // @media (max-width: 800px){
+        //     width: 30px;
+        //     height: 30px;
+        // }
+
     }
 
     &__bees {
         font-style: italic;
         font-weight: 600;
     }
+
+    // @media (max-width: 800px) {
+    //     font-size: 28px;
+    // }
 }
 
 .inputtext {

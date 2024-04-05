@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.scss";
 import "remixicon/fonts/remixicon.css";
+import RecoilRootProvider from "@/state/RecoilRootProvider";
+import SocketProvider from "@/state/SocketProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <main className="main">{children}</main>
-      </body>
+      <RecoilRootProvider>
+        <body className={inter.className}>
+          <SocketProvider>
+            <main className="main">{children}</main>
+          </SocketProvider>
+        </body>
+      </RecoilRootProvider>
     </html>
   );
 }
