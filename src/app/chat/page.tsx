@@ -4,7 +4,6 @@ import "./index.scss";
 import users from "@/assets/jsons/users.json";
 import ChatNavbar from "@/components/navbar/ChatNavbar";
 import InputComponent from "@/components/chat/InputComponent";
-import useSocket from "@/hooks/useSocket";
 import ChatCanvas from "@/components/chat/ChatCanvas";
 import { messagesAtom } from "@/state/SocketProvider";
 import { useRecoilState } from "recoil";
@@ -14,7 +13,6 @@ import ChatMessages from "@/components/chat/ChatMessages";
 type Props = {};
 
 const Chat = ({}: Props) => {
-  const { sendMessage } = useSocket();
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useRecoilState(messagesAtom);
   const [active, setActive] = useState<string>(users[0]?.id);

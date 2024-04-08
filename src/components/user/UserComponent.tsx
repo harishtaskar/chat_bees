@@ -1,27 +1,34 @@
 import React from "react";
 import "./index.scss";
-import Image from "next/image";
-import Bee from "@/assets/images/bee.png";
+import UserIcon from "../icons/Icons";
+import Badge from "../shared/Badge";
 
 type Props = {
   username: string;
   designation: string;
+  iconIndex: number;
   isActive: boolean;
 };
 
-const UserComponent = ({ username, designation, isActive }: Props) => {
+const UserComponent = ({
+  iconIndex,
+  username,
+  designation,
+  isActive,
+}: Props) => {
   return (
     <div className={`user ${isActive ? "user__active" : ""}`}>
-      <Image
-        src={Bee}
-        width={30}
-        height={30}
-        alt="user_logo"
-        className="user__logo"
-      />
+      <UserIcon insectIndex={iconIndex} />
       <div className="user__container">
-        <span className="user__container__title">{username}</span>
-        <span className="user__container__subtitle">{designation}</span>
+        <div className={"user__container__first"}>
+          <span className="user__container__first__title">{username}</span>
+          <span className="user__container__first__subtitle">
+            {designation}
+          </span>
+        </div>
+        <div className={"user__container__second"}>
+          <Badge text={iconIndex} />
+        </div>
       </div>
     </div>
   );

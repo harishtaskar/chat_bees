@@ -1,15 +1,25 @@
 "use client";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import "./index.scss";
 import Logo from "../shared/Logo";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Bee from "../../assets/images/bee.png";
+import MessagesPopup from "../shared/MessagesPopup";
+import ChatMessages from "../chat/ChatMessages";
+import users from "../../assets/jsons/users.json";
 
 type Props = {};
 
 const Sidenav = ({}: Props) => {
+  const [active, setActive] = useState<string>(users[0]?.id);
+  const [popup, setPopup] = useState<boolean>(false);
+
+  const userClickHandler = useCallback((id: string) => {
+    setActive(id);
+  }, []);
+
   const pathname = usePathname();
   return (
     <div className="sidenav">
@@ -40,6 +50,33 @@ const Sidenav = ({}: Props) => {
               </span>
             </Link>
           </li>
+          <li
+            className="sidenav__links__list__list_item_mobile"
+            onClick={() => setPopup((prev) => !prev)}
+          >
+            {popup && (
+              <MessagesPopup
+                body={
+                  <ChatMessages
+                    users={users}
+                    onUserClick={userClickHandler}
+                    active={active}
+                    styles={{ maxHeight: "70vh", height: "100%" }}
+                  />
+                }
+              />
+            )}
+            <Link
+              href={"/chat"}
+              className={`sidenav__links__list__list_item__link`}
+            >
+              <i className="ri-chat-3-line ri-xl" />{" "}
+              <span className={`sidenav__links__list__list_item__link__text`}>
+                Messages
+              </span>
+            </Link>
+          </li>
+
           <li className="sidenav__links__list__list_item">
             <Link
               href={"/chat/profile"}
@@ -48,9 +85,9 @@ const Sidenav = ({}: Props) => {
               }`}
             >
               <i className="ri-user-line ri-xl" />{" "}
-              {/* <span className={`sidenav__links__list__list_item__link__text`}>
+              <span className={`sidenav__links__list__list_item__link__text`}>
                 Profile
-              </span> */}
+              </span>
             </Link>
           </li>
         </ul>

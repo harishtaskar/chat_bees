@@ -11,6 +11,7 @@ const ChatNavbar = ({ user }: Props) => {
     <div className="chat_navbar">
       {
         <UserComponent
+          iconIndex={user.iconIndex}
           isActive={false}
           username={user.username}
           designation={user.designation}

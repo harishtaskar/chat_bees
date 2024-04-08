@@ -2,81 +2,85 @@
   {
     "id": "987654321",
     "username": "john_doe",
-    "designation": "Software Engineer"
+    "designation": "Software Engineer",
+    "iconIndex": 1
   },
   {
     "id": "123456789",
     "username": "jane_smith",
-    "designation": "Project Manager"
+    "designation": "Project Manager",
+    "iconIndex": 4
   },
   {
     "id": "456789123",
     "username": "bob_jones",
-    "designation": "Data Analyst"
+    "designation": "Data Analyst",
+    "iconIndex": 3
   },
   {
     "id": "789123456",
     "username": "alice_wang",
-    "designation": "UX Designer"
+    "designation": "UX Designer",
+    "iconIndex": 2
   },
   {
     "id": "654321987",
     "username": "michael_nguyen",
-    "designation": "Systems Administrator"
+    "designation": "Systems Administrator",
+    "iconIndex": 5
   },
   {
     "id": "321987654",
     "username": "emily_garcia",
-    "designation": "Product Manager"
+    "designation": "Product Manager",
+    "iconIndex": 8
   },
   {
     "id": "741852963",
     "username": "david_lee",
-    "designation": "Software Developer"
+    "designation": "Software Developer",
+    "iconIndex": 6
   },
   {
     "id": "852963741",
     "username": "sarah_brown",
-    "designation": "Data Scientist"
+    "designation": "Data Scientist",
+    "iconIndex": 7
   },
   {
     "id": "369258147",
     "username": "ryan_smith",
-    "designation": "Business Analyst"
+    "designation": "Business Analyst",
+    "iconIndex": 12
   },
   {
     "id": "147258369",
     "username": "lisa_kim",
-    "designation": "UI Designer"
+    "designation": "UI Designer",
+    "iconIndex": 11
   },
   {
     "id": "258369147",
     "username": "kevin_nguyen",
-    "designation": "Network Engineer"
+    "designation": "Network Engineer",
+    "iconIndex": 9
   },
   {
     "id": "963852741",
     "username": "natalie_chen",
-    "designation": "Marketing Specialist"
+    "designation": "Marketing Specialist",
+    "iconIndex": 10
   },
   {
     "id": "852741963",
     "username": "jason_patel",
-    "designation": "Quality Assurance Engineer"
+    "designation": "Quality Assurance Engineer",
+    "iconIndex": 13
   },
   {
     "id": "741963852",
     "username": "olivia_adams",
-    "designation": "Financial Analyst"
-  },
-  {
-    "id": "963147258",
-    "username": "brandon_miller",
-    "designation": "Project Coordinator"
-  },
-  {
-    "id": "147963852",
-    "username": "amy_nguyen",
-    "designation": "Customer Support Representative"
+    "designation": "Financial Analyst",
+    "iconIndex": 6
   }
 ]

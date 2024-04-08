@@ -1,0 +1,18 @@
+.icon {
+    background-color: inherit;
+    padding: 6px;
+    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+
+    &__logo {
+        width: 30px;
+        height: 30px;
+
+        @media (max-width: 700px) {
+            padding: 4px;
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
