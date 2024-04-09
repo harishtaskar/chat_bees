@@ -1,15 +1,23 @@
 .chat_layout {
     width: 100%;
     // min-width: 380px;
-    height: 93vh;
+    height: 100vh;
     display: flex;
     align-items: flex-start;
-    box-shadow: 0px 0px 0px 1px #e5e5e5;
+
+    @media (max-width:840px) {
+        height: 93vh;
+        border-bottom: 1px solid var(--muted-border);
+    }
 
     &__main {
         @extend .chat_layout;
         flex-direction: column;
         height: 93vh;
+
+        @media (max-width: 840px) {
+            height: 93vh;
+        }
 
         &__screen {
             width: 100%;
@@ -26,7 +34,7 @@
     &__message_container {
         display: block;
 
-        @media (max-width: 700px) {
+        @media (max-width: 840px) {
             display: none;
         }
     }
@@ -34,14 +42,14 @@
     &__chat_container {
         position: relative;
         width: 100%;
-        height: calc(93vh - 80px);
+        height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
         border-left: 1px solid var(--muted-border);
 
-        @media (max-width: 700px) {
+        @media (max-width: 840px) {
             height: calc(93vh - 65px);
         }
 

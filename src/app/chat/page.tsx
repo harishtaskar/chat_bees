@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import "./index.scss";
 import users from "@/assets/jsons/users.json";
 import ChatNavbar from "@/components/navbar/ChatNavbar";
@@ -9,10 +9,12 @@ import { messagesAtom } from "@/state/SocketProvider";
 import { useRecoilState } from "recoil";
 import { currentDateTime } from "../utils/DateTime";
 import ChatMessages from "@/components/chat/ChatMessages";
+import useValidation from "@/hooks/useValidation";
 
 type Props = {};
 
 const Chat = ({}: Props) => {
+  const { deviceValidation } = useValidation();
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useRecoilState(messagesAtom);
   const [active, setActive] = useState<string>(users[0]?.id);
@@ -22,6 +24,10 @@ const Chat = ({}: Props) => {
       return item?.id === active;
     });
   }, [active]);
+
+  useEffect(() => {
+    deviceValidation();
+  }, []);
 
   const inputChangeHandler = useCallback((id: string, value: string) => {
     setMessage(value);

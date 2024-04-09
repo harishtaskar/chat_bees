@@ -4,6 +4,7 @@ import "./globals.scss";
 import "remixicon/fonts/remixicon.css";
 import RecoilRootProvider from "@/state/RecoilRootProvider";
 import SocketProvider from "@/state/SocketProvider";
+import RenderModal from "@/components/render-modal/RenderModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <RecoilRootProvider>
+        <RenderModal />
         <body className={inter.className}>
           <SocketProvider>
             <main className="main">{children}</main>

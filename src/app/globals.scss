@@ -13,9 +13,10 @@
     --primary-color: #615EF0;
     --primary-color-20: #605ef025;
     --primary-color-50: #605ef081;
+    --primary-color-50: #03009b8, 130, 0.506;
     --success-text-color: #2DC071;
     --success-color: #76D8A3;
-    --fail-color: #DF1E1E;
+    --red-color: #DF1E1E;
     --muted-color: #BDBDBD;
     --muted-border: #dddddd;
     --skeleton-color: #eeeeee;
@@ -37,7 +38,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    max-height: 93vh;
+
 }
 
 .loading {

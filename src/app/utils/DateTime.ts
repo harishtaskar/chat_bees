@@ -9,7 +9,7 @@ export const currentDateTime = () => {
   const minutes = currentDate.getMinutes();
 
   // Format the date and time as needed
-  const date = `${year}-${month < 10 ? "0" + month : month}-${
+  const date = `${year}/${month < 10 ? "0" + month : month}/${
     day < 10 ? "0" + day : day
   }`;
   const time = `${hours < 10 ? "0" + hours : hours}:${

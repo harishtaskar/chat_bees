@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./index.scss";
 import Logo from "../shared/Logo";
 import Link from "next/link";
@@ -13,8 +13,25 @@ import users from "../../assets/jsons/users.json";
 type Props = {};
 
 const Sidenav = ({}: Props) => {
+  const msgRef = useRef<any>(null);
   const [active, setActive] = useState<string>(users[0]?.id);
   const [popup, setPopup] = useState<boolean>(false);
+
+  // clicked outside of msgDiv
+  useEffect(() => {
+    function handler(event: MouseEvent) {
+      console.log(popup);
+      if (!msgRef.current?.contains(event.target)) {
+        // change starts here
+        setTimeout(() => {
+          setPopup(false);
+        }, 300);
+        // change starts here
+      }
+    }
+    window.addEventListener("click", handler);
+    return () => window.removeEventListener("click", handler);
+  }, []);
 
   const userClickHandler = useCallback((id: string) => {
     setActive(id);
@@ -50,22 +67,15 @@ const Sidenav = ({}: Props) => {
               </span>
             </Link>
           </li>
+
           <li
             className="sidenav__links__list__list_item_mobile"
             onClick={() => setPopup((prev) => !prev)}
+            ref={msgRef}
           >
-            {popup && (
-              <MessagesPopup
-                body={
-                  <ChatMessages
-                    users={users}
-                    onUserClick={userClickHandler}
-                    active={active}
-                    styles={{ maxHeight: "70vh", height: "100%" }}
-                  />
-                }
-              />
-            )}
+            <div className="sidenav__links__list__list_item_mobile__msg_badge">
+              5
+            </div>
             <Link
               href={"/chat"}
               className={`sidenav__links__list__list_item__link`}
@@ -76,7 +86,18 @@ const Sidenav = ({}: Props) => {
               </span>
             </Link>
           </li>
-
+          {popup && (
+            <MessagesPopup
+              body={
+                <ChatMessages
+                  users={users}
+                  onUserClick={userClickHandler}
+                  active={active}
+                  styles={{ maxHeight: "70vh", height: "100%" }}
+                />
+              }
+            />
+          )}
           <li className="sidenav__links__list__list_item">
             <Link
               href={"/chat/profile"}

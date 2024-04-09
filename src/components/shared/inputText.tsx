@@ -33,7 +33,7 @@ const InputText = ({
   require = true,
   width,
   minLength = 0,
-  maxLength = 100,
+  maxLength = 500,
   onChange,
   value,
   filename,
