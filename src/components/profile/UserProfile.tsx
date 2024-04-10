@@ -44,7 +44,7 @@ const UserProfile = ({ onClose }: Props) => {
         </div>
       </div>
     );
-  }, []);
+  }, [userProfile]);
 
   return (
     <Modal

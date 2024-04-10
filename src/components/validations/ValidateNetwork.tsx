@@ -19,13 +19,13 @@ const ValidateNetwork = ({}: Props) => {
     };
 
     // Add event listeners for online and offline events
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+    global.window?.addEventListener("online", handleOnline);
+    global.window?.addEventListener("offline", handleOffline);
 
     // Cleanup function to remove event listeners
     return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
+      global.window?.removeEventListener("online", handleOnline);
+      global.window?.removeEventListener("offline", handleOffline);
     };
   }, []);
 
@@ -42,7 +42,7 @@ const ValidateNetwork = ({}: Props) => {
             textAlign: "center",
           }}
         >
-          You're Online
+          You are Online
         </div>
       );
     case "offline":
@@ -57,7 +57,7 @@ const ValidateNetwork = ({}: Props) => {
             textAlign: "center",
           }}
         >
-          You're Offline
+          You are Offline
         </div>
       );
 

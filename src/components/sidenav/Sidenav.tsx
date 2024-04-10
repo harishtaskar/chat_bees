@@ -29,8 +29,8 @@ const Sidenav = ({}: Props) => {
         // change starts here
       }
     }
-    window.addEventListener("click", handler);
-    return () => window.removeEventListener("click", handler);
+    global.window?.addEventListener("click", handler);
+    return () => global.window?.removeEventListener("click", handler);
   }, []);
 
   const userClickHandler = useCallback((id: string) => {

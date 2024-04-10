@@ -37,7 +37,7 @@ const EditProfilePicture = ({ onClose }: Props) => {
         </div>
       </div>
     );
-  }, [selectedIconIndex]);
+  }, [selectedIconIndex, onClose]);
   return (
     <Modal
       closeBtn={false}

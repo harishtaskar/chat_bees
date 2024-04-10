@@ -8,24 +8,24 @@ type Props = {};
 const ValidateDevice = (props: Props) => {
   const setActiveModal = useSetRecoilState(modalAtom);
 
-  const [windowSize, setWindowSize] = useState({
-    width: window.screen.width,
-    height: window.screen.height,
+  const [windowSize, setwindowSize] = useState({
+    width: global.window?.screen.width,
+    height: global.window?.screen.height,
   });
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowSize({
-        width: window.screen.width,
-        height: window.screen.height,
+      setwindowSize({
+        width: global.window?.screen.width,
+        height: global.window?.screen.height,
       });
     };
 
-    window.addEventListener("resize", handleResize);
+    global.window?.addEventListener("resize", handleResize);
 
     // Cleanup function to remove event listener when component unmounts
     return () => {
-      window.removeEventListener("resize", handleResize);
+      global.window?.removeEventListener("resize", handleResize);
     };
   }, []);
 

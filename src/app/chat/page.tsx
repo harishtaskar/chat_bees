@@ -40,7 +40,7 @@ const Chat = ({}: Props) => {
       ]);
       setMessage("");
     }
-  }, [message]);
+  }, [message, date, time]);
 
   const keyDownHandler = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {

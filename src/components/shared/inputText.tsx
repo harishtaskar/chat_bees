@@ -72,7 +72,7 @@ const InputText = ({
         }
       }
     },
-    [type]
+    [type, minLength, maxLength, id]
   );
 
   const renderEyeButton = useMemo(() => {

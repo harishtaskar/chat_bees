@@ -71,7 +71,7 @@ const UpdateProfile = ({ onClose }: Props) => {
         </div>
       </div>
     );
-  }, []);
+  }, [onClose]);
 
   return (
     <Modal
