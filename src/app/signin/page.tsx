@@ -56,7 +56,7 @@ const Signin = ({}: Props) => {
         closeBtn={false}
         backgroundstyle={{
           width: "100%",
-          minHeight: "fit-content",
+          height: "fit-content",
           backgroundColor: "transparent",
           position: "relative",
         }}

@@ -42,7 +42,6 @@ export const SecondaryButton = ({ name, onClick, style, isLoading }: Props) => {
       type="reset"
       style={style}
     >
-      {name}
       {isLoading ? <i className="loading" /> : name}
     </button>
   );

@@ -5,6 +5,8 @@ import "remixicon/fonts/remixicon.css";
 import RecoilRootProvider from "@/state/RecoilRootProvider";
 import SocketProvider from "@/state/SocketProvider";
 import RenderModal from "@/components/render-modal/RenderModal";
+import ValidateDevice from "@/components/validations/ValidateDevice";
+import ValidateNetwork from "@/components/validations/ValidateNetwork";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <RecoilRootProvider>
-        <RenderModal />
         <body className={inter.className}>
+          <RenderModal />
+          <ValidateDevice />
           <SocketProvider>
-            <main className="main">{children}</main>
+            <main className="main">
+              {children}
+              <ValidateNetwork />
+            </main>
           </SocketProvider>
         </body>
       </RecoilRootProvider>

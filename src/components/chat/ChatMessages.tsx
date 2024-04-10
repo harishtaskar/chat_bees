@@ -31,10 +31,13 @@ const ChatMessages = ({ users, onUserClick, active, styles }: Props) => {
               key={user.id}
             >
               <UserComponent
+                id={user.id}
                 iconIndex={user.iconIndex}
                 isActive={user.id === active}
                 designation={user.designation}
                 username={user.username}
+                age={user.age}
+                gender={user.gender}
               />
             </li>
           );

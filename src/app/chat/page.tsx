@@ -9,12 +9,10 @@ import { messagesAtom } from "@/state/SocketProvider";
 import { useRecoilState } from "recoil";
 import { currentDateTime } from "../utils/DateTime";
 import ChatMessages from "@/components/chat/ChatMessages";
-import useValidation from "@/hooks/useValidation";
 
 type Props = {};
 
 const Chat = ({}: Props) => {
-  const { deviceValidation } = useValidation();
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useRecoilState(messagesAtom);
   const [active, setActive] = useState<string>(users[0]?.id);
@@ -25,16 +23,12 @@ const Chat = ({}: Props) => {
     });
   }, [active]);
 
-  useEffect(() => {
-    deviceValidation();
-  }, []);
-
   const inputChangeHandler = useCallback((id: string, value: string) => {
     setMessage(value);
   }, []);
 
   const sendInputMessage = useCallback(() => {
-    if (message) {
+    if (message.trim() !== "") {
       setMessages((prev) => [
         ...prev,
         {
@@ -77,7 +71,7 @@ const Chat = ({}: Props) => {
         />
       </div>
       <div className="chat__chat_container">
-        <ChatNavbar user={activeUser[0]} />
+        <ChatNavbar user={users.filter((user) => user.id === active)[0]} />
         <ChatCanvas messages={messages} />
         <InputComponent
           onChange={inputChangeHandler}

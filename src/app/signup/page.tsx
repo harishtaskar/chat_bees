@@ -77,7 +77,7 @@ const Signup = (props: Props) => {
         closeBtn={false}
         backgroundstyle={{
           width: "fit-content",
-          minHeight: "fit-content",
+          height: "fit-content",
           backgroundColor: "transparent",
           position: "relative",
         }}

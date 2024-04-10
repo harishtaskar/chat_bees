@@ -11,10 +11,13 @@ const ChatNavbar = ({ user }: Props) => {
     <div className="chat_navbar">
       {
         <UserComponent
+          id={user.id}
           iconIndex={user.iconIndex}
           isActive={false}
           username={user.username}
           designation={user.designation}
+          gender={user.gender}
+          age={user.age}
         />
       }
     </div>

@@ -18,6 +18,7 @@ const EditProfilePicture = ({ onClose }: Props) => {
           {Insect.map((item: any, index: number) => {
             return (
               <div
+                key={item}
                 className={`body__icons__icon ${
                   selectedIconIndex === index && "body__icons__active"
                 }`}
@@ -32,7 +33,7 @@ const EditProfilePicture = ({ onClose }: Props) => {
           <button className={"body__buttons__btn"} onClick={onClose}>
             Cancel
           </button>
-          <button className={"body__buttons__btn"}>Submit</button>
+          <button className={"body__buttons__btn"}>Change</button>
         </div>
       </div>
     );
@@ -42,7 +43,7 @@ const EditProfilePicture = ({ onClose }: Props) => {
       closeBtn={false}
       body={renderBody}
       onClose={onClose}
-      modalstyle={{ margin: "0px 20px", maxWidth: "560px" }}
+      modalstyle={{ margin: "0px 20px", maxWidth: "580px" }}
     />
   );
 };

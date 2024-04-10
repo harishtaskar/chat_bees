@@ -3,14 +3,14 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    padding: 10px 20px;
-    position: absolute;
+    padding: 20px;
+    // position: absolute;
     bottom: 0px;
 
     @media (max-width: 840px) {
         width: calc(100% - 20px);
         gap: 8px;
-        padding: 6px 10px;
+        padding: 10px 10px;
         // padding-bottom: 50px;
     }
 
@@ -36,9 +36,8 @@
 
 .canvas {
     width: calc(100% - 20px);
-    height: 100%;
+    height: calc(100% - 20px);
     padding: 10px;
-    margin-bottom: 65px;
     display: flex;
     flex-direction: column;
     gap: 12px;

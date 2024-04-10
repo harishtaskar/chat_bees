@@ -108,11 +108,11 @@ const InputText = ({
           id={id}
           required={require ?? true}
           onChange={onInputChangeHandler}
-          style={{
-            width: `${width ? `calc(${width} - 34px)` : "calc(100% - 34px)"}`,
-            borderStyle: `${type === "file" ? "dashed" : "solid"}`,
-            ...style,
-          }}
+          // style={{
+          //   width: `${width ? `calc(${width} - 34px)` : "calc(100% - 34px)"}`,
+          //   borderStyle: `${type === "file" ? "dashed" : "solid"}`,
+          //   ...style,
+          // }}
           minLength={minLength}
           maxLength={maxLength}
           autoComplete={autoComplete}

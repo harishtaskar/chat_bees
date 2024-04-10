@@ -27,7 +27,10 @@ const Profile = ({}: Props) => {
           <span className={"profile__container__details__text"}>22</span>
           <span className={"profile__container__details__text"}>male</span>
         </div>
-        <button className={"profile__container__btn"}>
+        <button
+          className={"profile__container__btn"}
+          onClick={() => setActiveModal("update-profile")}
+        >
           {" "}
           <i className="ri-pencil-fill" /> Edit Profile
         </button>

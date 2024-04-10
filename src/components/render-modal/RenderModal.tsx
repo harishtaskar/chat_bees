@@ -4,18 +4,28 @@ import EditProfilePicture from "../profile/EditProfilePicture";
 import { useRecoilState } from "recoil";
 import { modalAtom } from "@/state/Atom";
 import InvalidScreen from "./InvalidScreen";
+import UpdateProfile from "../profile/UpdateProfile";
+import UserProfile from "../profile/UserProfile";
 
 type Props = {};
 
 const RenderModal = (props: Props) => {
   const [modal, setModal] = useRecoilState(modalAtom);
-  const onClose = useCallback(() => {
-    setModal("");
-  }, []);
+  const onClose = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
+      setModal("");
+    },
+    []
+  );
 
   switch (modal) {
+    case "user-profile":
+      return <UserProfile onClose={onClose} />;
     case "edit-profile-picture":
       return <EditProfilePicture onClose={onClose} />;
+    case "update-profile":
+      return <UpdateProfile onClose={onClose} />;
     case "invalid-device":
       return <InvalidScreen />;
 
