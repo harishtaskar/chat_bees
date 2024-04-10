@@ -14,7 +14,6 @@ const useSocket = () => {
   const sendMessage: ISocketContext["sendMessage"] = useCallback(
     (msg) => {
       if (socket) {
-        console.log("Send Message", msg);
         socket.emit("event:message", { message: msg });
       }
     },

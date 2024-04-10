@@ -1,5 +1,4 @@
-"use client";
-import { CSSProperties, MouseEventHandler, ReactNode, useEffect } from "react";
+import { CSSProperties, MouseEventHandler, ReactNode } from "react";
 import "./index.scss";
 
 type Props = {

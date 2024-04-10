@@ -24,7 +24,6 @@ const SocketProvider = ({ children }: SocketProvider) => {
   const setSocket = useSetRecoilState<Socket | undefined>(socketAtom);
 
   const onMessageRec = (msg: string) => {
-    console.log(`Msg Recieved from Server ${msg}`);
     const { message } = JSON.parse(msg) as { message: string };
     setMessages((prev) => [...prev, message]);
   };

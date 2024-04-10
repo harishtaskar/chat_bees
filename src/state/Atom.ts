@@ -5,6 +5,11 @@ export const modalAtom = atom({
   default: "",
 });
 
+export const userAtom = atom({
+  key: "userAtom",
+  default: "undefined",
+});
+
 export const userProfileAtom = atom({
   key: "userProfileAtom",
   default: {

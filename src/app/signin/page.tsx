@@ -1,15 +1,38 @@
 "use client";
 import Modal from "@/components/Modals/Modal";
 import Logo from "@/components/shared/Logo";
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import "../index.scss";
 import InputText from "@/components/shared/inputText";
 import PrimaryButton from "@/components/shared/Buttons";
 import Link from "next/link";
 
-type Props = {};
+type Input = {
+  username: string;
+  password: string;
+};
 
-const Signin = ({}: Props) => {
+const Signin = () => {
+  const [input, setInput] = useState<Input>({
+    username: "",
+    password: "",
+  });
+
+  const onChange = useCallback((name: string, value: string) => {
+    setInput((prev: Input) => {
+      return { ...prev, [name]: value };
+    });
+  }, []);
+
+  const submitHandler = useCallback(() => {
+    //Add Signin logic here
+    console.log(input);
+    setInput({
+      username: "",
+      password: "",
+    });
+  }, [input]);
+
   const renderBody = useMemo(() => {
     return (
       <div className="page__body">
@@ -17,20 +40,22 @@ const Signin = ({}: Props) => {
         <div className="page__body__form">
           <InputText
             id="username"
-            onChange={() => {}}
+            onChange={onChange}
             inputType="text"
             label="Username"
+            value={input?.username}
           />
           <InputText
             id="password"
-            onChange={() => {}}
+            onChange={onChange}
             inputType="password"
             label="Password"
             password={true}
+            value={input?.password}
           />
           <PrimaryButton
             name={"Submit"}
-            onClick={() => {}}
+            onClick={submitHandler}
             style={{ marginTop: "10px" }}
           />
           <div className="horizontaldiv">
@@ -44,7 +69,7 @@ const Signin = ({}: Props) => {
         </div>
       </div>
     );
-  }, []);
+  }, [input]);
 
   return (
     <div className="page">
@@ -62,7 +87,7 @@ const Signin = ({}: Props) => {
         }}
         modalstyle={{
           width: "100%",
-          maxWidth: "480px",
+          maxWidth: "440px",
           position: "relative",
           borderRadius: "12px",
           margin: "30px 20px",

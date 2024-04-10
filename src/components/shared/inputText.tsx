@@ -15,6 +15,8 @@ type Props = {
   onChange: Function;
   value?: any;
   filename?: any;
+  max?: number;
+  min?: number;
   style?: CSSProperties;
   inputTextStyle?: CSSProperties;
   fileloading?: boolean;
@@ -43,8 +45,11 @@ const InputText = ({
   inputTextStyle,
   autoComplete = "on",
   onKeyDown,
+  max,
+  min,
 }: Props) => {
   const [type, setType] = useState<string>(inputType || "text");
+  const [warningState, setWarningState] = useState<string | undefined>("");
 
   //Validating email if type is email
   const validateEmail = (email: string) => {
@@ -56,10 +61,11 @@ const InputText = ({
   const onInputChangeHandler = useCallback(
     (e: any) => {
       if (
-        e.target.value.toString().length < minLength ||
-        e.target.value.toString().length > maxLength
+        e.target.value.toString().length >= minLength ||
+        e.target.value.toString().length <= maxLength
       ) {
         onChange(id, null);
+        setWarningState("");
       } else {
         if (type === "email") {
           if (validateEmail(e.target.value)) {
@@ -70,9 +76,10 @@ const InputText = ({
         } else {
           onChange(id, e.target.value);
         }
+        setWarningState(warning);
       }
     },
-    [type, minLength, maxLength, id]
+    [type]
   );
 
   const renderEyeButton = useMemo(() => {
@@ -115,12 +122,14 @@ const InputText = ({
           // }}
           minLength={minLength}
           maxLength={maxLength}
+          max={max}
+          min={min}
           autoComplete={autoComplete}
           onKeyDown={onKeyDown}
         />
         {password && renderEyeButton}
       </div>
-      <span className={"inputtext__warning"}>{warning}</span>
+      <span className={"inputtext__warning"}>{warningState}</span>
     </div>
   );
 };

@@ -20,16 +20,8 @@ const ValidateDevice = (props: Props) => {
         height: global.window?.screen.height,
       });
     };
-
-    global.window?.addEventListener("resize", handleResize);
-
-    // Cleanup function to remove event listener when component unmounts
-    return () => {
-      global.window?.removeEventListener("resize", handleResize);
-    };
+    handleResize();
   }, []);
-
-  console.log(windowSize);
 
   useEffect(() => {
     if (windowSize.width < 330 || windowSize.height < 580) {

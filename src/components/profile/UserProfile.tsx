@@ -20,7 +20,7 @@ const UserProfile = ({ onClose }: Props) => {
         <div className={"body__container"}>
           <div className={"body__container__pfp_div"}>
             <UserIcon
-              insectIndex={userProfile.iconIndex}
+              insectIndex={userProfile.iconIndex || 0}
               width={80}
               height={80}
             />

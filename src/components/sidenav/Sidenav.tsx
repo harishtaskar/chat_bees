@@ -20,7 +20,6 @@ const Sidenav = ({}: Props) => {
   // clicked outside of msgDiv
   useEffect(() => {
     function handler(event: MouseEvent) {
-      console.log(popup);
       if (!msgRef.current?.contains(event.target)) {
         // change starts here
         setTimeout(() => {

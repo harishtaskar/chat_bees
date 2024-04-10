@@ -1,15 +1,33 @@
 "use client";
 import Modal from "@/components/Modals/Modal";
 import Logo from "@/components/shared/Logo";
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import "../index.scss";
 import InputText from "@/components/shared/inputText";
 import PrimaryButton from "@/components/shared/Buttons";
 import Link from "next/link";
 
-type Props = {};
+const Signup = () => {
+  const [input, setInput] = useState<any>({});
 
-const Signup = (props: Props) => {
+  const onChange = useCallback((name: string, value: string | number) => {
+    setInput((prev: any) => {
+      return { ...prev, [name]: value };
+    });
+  }, []);
+
+  const submitHandler = useCallback(() => {
+    //Add Signup logic here
+    console.log(input);
+    setInput({
+      username: "",
+      password: "",
+      designation: "",
+      gender: "male",
+      age: null,
+    });
+  }, [input]);
+
   const renderBody = useMemo(() => {
     return (
       <div className="page__body">
@@ -17,30 +35,40 @@ const Signup = (props: Props) => {
         <div className="page__body__form">
           <InputText
             id="username"
-            onChange={() => {}}
+            onChange={onChange}
             inputType="text"
             label="Username"
+            value={input.username}
           />
           <div className="horizontaldiv">
             <InputText
               id="age"
-              onChange={() => {}}
-              inputType="Number"
+              onChange={onChange}
+              inputType="number"
               label="Age"
+              value={input.age}
+              max={60}
+              min={16}
+              warning={"invalid age"}
             />
             <InputText
-              id="Gender"
-              onChange={() => {}}
+              id="gender"
+              onChange={onChange}
               inputType="Text"
               label="Gender"
+              value={input.gender}
             />
           </div>
           <InputText
             id="password"
-            onChange={() => {}}
+            onChange={onChange}
             inputType="password"
             label="Password"
             password={true}
+            value={input.password}
+            maxLength={22}
+            minLength={8}
+            warning="password is too short"
           />
           <InputText
             id="confirm_password"
@@ -48,10 +76,11 @@ const Signup = (props: Props) => {
             inputType="password"
             label="Confirm Password"
             password={true}
+            maxLength={22}
           />
           <PrimaryButton
             name={"Submit"}
-            onClick={() => {}}
+            onClick={submitHandler}
             style={{ marginTop: "10px" }}
           />
           <div className="horizontaldiv">
@@ -65,7 +94,7 @@ const Signup = (props: Props) => {
         </div>
       </div>
     );
-  }, []);
+  }, [input]);
 
   return (
     <div className="page">
@@ -76,13 +105,14 @@ const Signup = (props: Props) => {
         body={renderBody}
         closeBtn={false}
         backgroundstyle={{
-          width: "fit-content",
+          width: "100%",
           height: "fit-content",
           backgroundColor: "transparent",
           position: "relative",
         }}
         modalstyle={{
           width: "100%",
+          maxWidth: "460px",
           position: "relative",
           borderRadius: "12px",
           margin: "30px 20px",

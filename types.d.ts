@@ -1,8 +1,9 @@
 interface IUser {
-  id: string;
+  id?: string;
   username: string;
+  password?: string;
   designation: string;
   gender: string;
-  age: number;
-  iconIndex: number;
+  age: number | null;
+  iconIndex?: number;
 }

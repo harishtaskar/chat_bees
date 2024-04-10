@@ -18,7 +18,7 @@
     &__body {
         @extend .page;
         width: calc(100% - 40px);
-        height: fit-content;
+        height: 100%;
         margin: 30px 20px;
 
         @media (max-width: 600px) {
