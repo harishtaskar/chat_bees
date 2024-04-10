@@ -3,6 +3,7 @@ import Modal from "@/components/Modals/Modal";
 import LoaderBar from "@/components/shared/LoaderBar";
 import Logo from "@/components/shared/Logo";
 import React, { useMemo } from "react";
+import "./index.scss";
 
 const SplashScreen = () => {
   const renderBody = useMemo(() => {

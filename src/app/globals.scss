@@ -26,6 +26,15 @@
     --skeleton: #e2e5e7;
 }
 
+*:focus {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove focus outline */
+*:focus {
+    outline: none;
+}
+
 body {
     width: 100%;
     margin: 0px;

@@ -20,6 +20,7 @@ const UpdateProfile = ({ onClose }: Props) => {
             onChange={() => {}}
             inputType="text"
             label="Username"
+            require={false}
           />
           <div className="horizontaldiv">
             <InputText
@@ -27,12 +28,14 @@ const UpdateProfile = ({ onClose }: Props) => {
               onChange={() => {}}
               inputType="Number"
               label="Age"
+              require={false}
             />
             <InputText
               id="Gender"
               onChange={() => {}}
               inputType="Text"
               label="Gender"
+              require={false}
             />
           </div>
           <InputText
@@ -41,6 +44,7 @@ const UpdateProfile = ({ onClose }: Props) => {
             inputType="password"
             label="Old Password"
             password={true}
+            require={false}
           />
           <InputText
             id="newpassword"
@@ -48,6 +52,7 @@ const UpdateProfile = ({ onClose }: Props) => {
             inputType="password"
             label="New Password"
             password={true}
+            require={false}
           />
           <InputText
             id="confirm_password"
@@ -55,6 +60,7 @@ const UpdateProfile = ({ onClose }: Props) => {
             inputType="password"
             label="Confirm Password"
             password={true}
+            require={false}
           />
           <div className="horizontaldiv">
             <SecondaryButton
