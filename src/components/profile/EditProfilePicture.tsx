@@ -1,8 +1,11 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Modal from "../Modals/Modal";
 import UserIcon, { Insect } from "../icons/Icons";
 import "./index.scss";
+import useNetwork from "@/hooks/useNetwork";
+import { useSetRecoilState } from "recoil";
+import { userAtom } from "@/state/Atom";
 
 type Props = {
   onClose: React.MouseEventHandler<HTMLButtonElement>;
@@ -10,6 +13,24 @@ type Props = {
 
 const EditProfilePicture = ({ onClose }: Props) => {
   const [selectedIconIndex, setSelectedIconIndex] = useState(0);
+  const { patchRequest } = useNetwork();
+  const setUser = useSetRecoilState(userAtom);
+
+  const onSubmit = useCallback(
+    (event: any) => {
+      const updateProfile = async () => {
+        const response = await patchRequest("/user/update", {
+          updates: { iconIndex: selectedIconIndex },
+        });
+        if (response.res === "ok") {
+          setUser(response.user);
+        }
+      };
+      updateProfile();
+      onClose(event);
+    },
+    [selectedIconIndex]
+  );
 
   const renderBody = useMemo(() => {
     return (
@@ -33,7 +54,9 @@ const EditProfilePicture = ({ onClose }: Props) => {
           <button className={"body__buttons__btn"} onClick={onClose}>
             Cancel
           </button>
-          <button className={"body__buttons__btn"}>Change</button>
+          <button className={"body__buttons__btn"} onClick={onSubmit}>
+            Change
+          </button>
         </div>
       </div>
     );

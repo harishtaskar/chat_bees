@@ -2,22 +2,31 @@ import { atom } from "recoil";
 
 export const modalAtom = atom({
   key: "modal",
-  default: "",
+  default: "hello",
 });
 
-export const userAtom = atom({
+export const messagesAtom = atom<any[]>({
+  key: "message-atom",
+  default: [],
+});
+
+export const userAtom = atom<IUser | undefined>({
   key: "userAtom",
-  default: "undefined",
+  default: undefined,
 });
 
-export const userProfileAtom = atom({
+export const allUsersAtom = atom<IUser[] | undefined>({
+  key: "all-user-atom",
+  default: [],
+});
+
+//user which is currently chating with us
+export const activeUserAtom = atom<IUser | undefined>({
+  key: "activeUserAtom",
+  default: undefined,
+});
+
+export const userProfileAtom = atom<IUser | undefined>({
   key: "userProfileAtom",
-  default: {
-    id: "",
-    username: "",
-    designation: "",
-    age: 0,
-    gender: "",
-    iconIndex: 0,
-  },
+  default: undefined,
 });

@@ -3,7 +3,7 @@ import "./index.scss";
 import UserComponent from "../user/UserComponent";
 
 type Props = {
-  user: any;
+  user: IUser;
 };
 
 const ChatNavbar = ({ user }: Props) => {
@@ -11,13 +11,8 @@ const ChatNavbar = ({ user }: Props) => {
     <div className="chat_navbar">
       {
         <UserComponent
-          id={user.id}
-          iconIndex={user.iconIndex}
+          user={user}
           isActive={false}
-          username={user.username}
-          designation={user.designation}
-          gender={user.gender}
-          age={user.age}
         />
       }
     </div>

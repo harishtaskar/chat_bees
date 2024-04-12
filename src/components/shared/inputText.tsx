@@ -46,7 +46,7 @@ const InputText = ({
   autoComplete = "on",
   onKeyDown,
   max,
-  min,
+  min = 0,
 }: Props) => {
   const [type, setType] = useState<string>(inputType || "text");
   const [warningState, setWarningState] = useState<string | undefined>("");
@@ -61,11 +61,13 @@ const InputText = ({
   const onInputChangeHandler = useCallback(
     (e: any) => {
       if (
-        e.target.value.toString().length >= minLength ||
-        e.target.value.toString().length <= maxLength
+        e.target.value.toString().length < minLength ||
+        e.target.value.toString().length > maxLength ||
+        e.target.value > (max || 2 ^ 53) ||
+        e.target.value < min
       ) {
         onChange(id, null);
-        setWarningState("");
+        setWarningState(warning);
       } else {
         if (type === "email") {
           if (validateEmail(e.target.value)) {
@@ -75,8 +77,9 @@ const InputText = ({
           }
         } else {
           onChange(id, e.target.value);
+          setWarningState("");
         }
-        setWarningState(warning);
+        setWarningState("");
       }
     },
     [type]

@@ -1,17 +1,10 @@
 "use client";
-import { userAtom } from "@/state/Atom";
-import { useRouter } from "next/navigation";
+import useAuth from "@/hooks/useAuth";
 import { useEffect } from "react";
-import { useRecoilValue } from "recoil";
 
 export default function Home() {
-  const user: IUser | any = useRecoilValue(userAtom);
-  const router = useRouter();
+  const { authorizeUser } = useAuth();
   useEffect(() => {
-    if (user) {
-      router.push("/chat");
-    } else {
-      router.push("/signin");
-    }
+    authorizeUser();
   }, []);
 }

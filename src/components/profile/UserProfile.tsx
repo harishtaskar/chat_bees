@@ -30,7 +30,7 @@ const UserProfile = ({ onClose }: Props) => {
               {userProfile.username}
             </span>
             <span className={"body__container__details__subtitle"}>
-              {userProfile.designation}
+              {userProfile.occupation}
             </span>
             <div className={"body__container__details__detail"}>
               <span className={"body__container__details__detail__text"}>

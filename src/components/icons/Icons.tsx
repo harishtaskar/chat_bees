@@ -2,6 +2,7 @@ import React from "react";
 import ant from "@/assets/icons/ant.png";
 import bugs from "@/assets/icons/bugs.png";
 import butterfly from "@/assets/icons/butterfly.png";
+import butterfly1 from "@/assets/icons/butterfly1.png";
 import caterpillar from "@/assets/icons/caterpillar.png";
 import dragonfly from "@/assets/icons/dragonfly.png";
 import earthworm from "@/assets/icons/earthworm.png";
@@ -9,7 +10,6 @@ import fly from "@/assets/icons/fly.png";
 import grasshopper from "@/assets/icons/grasshopper.png";
 import insect from "@/assets/icons/insect.png";
 import mantis from "@/assets/icons/mantis.png";
-import masquito from "@/assets/icons/mosquito.png";
 import masquito1 from "@/assets/icons/mosquito1.png";
 import spider from "@/assets/icons/spider.png";
 import wasp from "@/assets/icons/wasp.png";
@@ -29,7 +29,7 @@ export const Insect = [
   grasshopper,
   insect,
   mantis,
-  masquito,
+  butterfly1,
   spider,
   wasp,
   cricket,

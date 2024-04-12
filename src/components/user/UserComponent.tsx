@@ -7,56 +7,38 @@ import { useSetRecoilState } from "recoil";
 import { modalAtom, userProfileAtom } from "@/state/Atom";
 
 type Props = {
-  id: string;
-  username: string;
-  designation: string;
-  iconIndex: number;
+  user: IUser;
   isActive: boolean;
-  age: number;
-  gender: string;
 };
 
-const UserComponent = ({
-  id,
-  iconIndex,
-  username,
-  designation,
-  age,
-  gender,
-  isActive,
-}: Props) => {
+const UserComponent = ({ user, isActive }: Props) => {
   const setActiveModal = useSetRecoilState(modalAtom);
   const setUserProfileDetails = useSetRecoilState(userProfileAtom);
   const profileClickHandler = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       event.stopPropagation();
       setActiveModal("user-profile");
-      setUserProfileDetails({
-        id,
-        username,
-        designation,
-        iconIndex,
-        age,
-        gender,
-      });
+      setUserProfileDetails(user);
     },
-    [id, iconIndex, username, designation, age, gender, isActive]
+    [user]
   );
 
   return (
     <div className={`user ${isActive ? "user__active" : ""}`}>
       <div onClick={profileClickHandler}>
-        <UserIcon insectIndex={iconIndex} />
+        <UserIcon insectIndex={user?.iconIndex || 0} />
       </div>
       <div className="user__container">
         <div className={"user__container__first"}>
-          <span className="user__container__first__title">{username}</span>
+          <span className="user__container__first__title">
+            {user?.username}
+          </span>
           <span className="user__container__first__subtitle">
-            {designation}
+            {user?.occupation}
           </span>
         </div>
         <div className={"user__container__second"}>
-          <Badge text={iconIndex} />
+          <Badge text={user?.iconIndex || 1} />
         </div>
       </div>
     </div>

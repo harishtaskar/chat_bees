@@ -14,6 +14,7 @@ const InputComponent = ({ onChange, onSendMsg, value, onKeyDown }: Props) => {
     <div className="input">
       <InputText
         id="input"
+        inputType="text"
         onChange={onChange}
         placeHolder="Type a message..."
         require={false}

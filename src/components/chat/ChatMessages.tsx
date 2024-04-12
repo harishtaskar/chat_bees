@@ -1,17 +1,33 @@
 "use client";
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useEffect } from "react";
 import UserComponent from "../user/UserComponent";
 import "./index.scss";
 import Badge from "../shared/Badge";
+import { useRecoilState } from "recoil";
+import { allUsersAtom } from "@/state/Atom";
+import useNetwork from "@/hooks/useNetwork";
 
 type Props = {
   users: any;
   onUserClick: Function;
-  active: string;
+  active?: string;
   styles?: CSSProperties;
 };
 
-const ChatMessages = ({ users, onUserClick, active, styles }: Props) => {
+const ChatMessages = ({ onUserClick, active, styles }: Props) => {
+  const [users, setUsers] = useRecoilState(allUsersAtom);
+  const { getRequest } = useNetwork();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await getRequest("/user/users");
+      if (response?.res === "ok") {
+        setUsers(response.users);
+      }
+    };
+    fetchUsers();
+  }, []);
+
   return (
     <div className="messeges" style={styles}>
       <div className="messeges__topbar">
@@ -23,21 +39,16 @@ const ChatMessages = ({ users, onUserClick, active, styles }: Props) => {
         </button>
       </div>
       <ul className="messeges__list">
-        {users?.map((user: any) => {
+        {users?.map((user: IUser) => {
           return (
             <li
               className="messeges__list__item"
-              onClick={() => onUserClick(user.id)}
+              onClick={() => onUserClick(user)}
               key={user.id}
             >
               <UserComponent
-                id={user.id}
-                iconIndex={user.iconIndex}
-                isActive={user.id === active}
-                designation={user.designation}
-                username={user.username}
-                age={user.age}
-                gender={user.gender}
+                user={user}
+                isActive={user.id === active || false}
               />
             </li>
           );

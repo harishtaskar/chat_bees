@@ -9,12 +9,16 @@ import Bee from "../../assets/images/bee.png";
 import MessagesPopup from "../shared/MessagesPopup";
 import ChatMessages from "../chat/ChatMessages";
 import users from "../../assets/jsons/users.json";
+import { useRecoilState } from "recoil";
+import { activeUserAtom } from "@/state/Atom";
 
 type Props = {};
 
 const Sidenav = ({}: Props) => {
   const msgRef = useRef<any>(null);
-  const [active, setActive] = useState<string>(users[0]?.id);
+  const [activeUser, setActiveUser] = useRecoilState<IUser | undefined>(
+    activeUserAtom
+  );
   const [popup, setPopup] = useState<boolean>(false);
 
   // clicked outside of msgDiv
@@ -32,8 +36,8 @@ const Sidenav = ({}: Props) => {
     return () => global.window?.removeEventListener("click", handler);
   }, []);
 
-  const userClickHandler = useCallback((id: string) => {
-    setActive(id);
+  const userClickHandler = useCallback((user: IUser) => {
+    setActiveUser(user);
   }, []);
 
   const pathname = usePathname();
@@ -91,7 +95,7 @@ const Sidenav = ({}: Props) => {
                 <ChatMessages
                   users={users}
                   onUserClick={userClickHandler}
-                  active={active}
+                  active={activeUser?.id}
                   styles={{ maxHeight: "70vh", height: "100%" }}
                 />
               }
@@ -117,6 +121,9 @@ const Sidenav = ({}: Props) => {
             className={`sidenav__links__linkdiv__link ${
               pathname === "/" ? "active" : ""
             }`}
+            onClick={() =>
+              global.window.localStorage.setItem("Authorization", "")
+            }
           >
             <i className="ri-logout-circle-line" />{" "}
             <span className={`sidenav__links__linkdiv__link__text`}>

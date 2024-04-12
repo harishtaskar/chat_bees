@@ -4,12 +4,18 @@ import Modal from "../Modals/Modal";
 import InputText from "../shared/inputText";
 import PrimaryButton, { SecondaryButton } from "../shared/Buttons";
 import "./index.scss";
+import { useRecoilValue } from "recoil";
+import { userAtom } from "@/state/Atom";
+import SelectBox from "../shared/SelectBox";
 
 type Props = {
   onClose: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const UpdateProfile = ({ onClose }: Props) => {
+  const user = useRecoilValue(userAtom);
+  console.log(user);
+
   const renderBody = useMemo(() => {
     return (
       <div className="body">
@@ -21,6 +27,15 @@ const UpdateProfile = ({ onClose }: Props) => {
             inputType="text"
             label="Username"
             require={false}
+            value={user?.username}
+          />
+          <InputText
+            id="occupation"
+            onChange={() => {}}
+            inputType="text"
+            label="Occupation"
+            require={false}
+            value={user?.occupation}
           />
           <div className="horizontaldiv">
             <InputText
@@ -29,23 +44,17 @@ const UpdateProfile = ({ onClose }: Props) => {
               inputType="Number"
               label="Age"
               require={false}
+              value={user?.age}
             />
-            <InputText
-              id="Gender"
+            <SelectBox
+              id="gender"
+              name="gender"
               onChange={() => {}}
-              inputType="Text"
-              label="Gender"
-              require={false}
+              label={"Gender"}
+              options={["male", "female"]}
+              value={user?.gender}
             />
           </div>
-          <InputText
-            id="oldPassword"
-            onChange={() => {}}
-            inputType="password"
-            label="Old Password"
-            password={true}
-            require={false}
-          />
           <InputText
             id="newpassword"
             onChange={() => {}}
@@ -84,7 +93,7 @@ const UpdateProfile = ({ onClose }: Props) => {
       closeBtn={false}
       body={renderBody}
       onClose={onClose}
-      modalstyle={{ margin: "0px 20px", maxWidth: "560px" }}
+      modalstyle={{ width: "100%", margin: "0px 20px", maxWidth: "500px" }}
     />
   );
 };

@@ -1,46 +1,38 @@
 "use client";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./index.scss";
 import users from "@/assets/jsons/users.json";
 import ChatNavbar from "@/components/navbar/ChatNavbar";
 import InputComponent from "@/components/chat/InputComponent";
 import ChatCanvas from "@/components/chat/ChatCanvas";
-import { messagesAtom } from "@/state/SocketProvider";
+import { messagesAtom } from "@/state/Atom";
 import { useRecoilState } from "recoil";
-import { currentDateTime } from "../utils/DateTime";
 import ChatMessages from "@/components/chat/ChatMessages";
+import { activeUserAtom } from "@/state/Atom";
+import { useSocket } from "@/state/SocketProvider";
+
 
 type Props = {};
 
 const Chat = ({}: Props) => {
+  const { sendMessage } = useSocket();
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useRecoilState(messagesAtom);
-  const [active, setActive] = useState<string>(users[0]?.id);
-  const { date, time } = currentDateTime();
-  const activeUser = useMemo(() => {
-    return users?.filter((item) => {
-      return item?.id === active;
-    });
-  }, [active]);
+  const [activeUser, setActiveUser] = useRecoilState<IUser | undefined>(
+    activeUserAtom
+  );
+
 
   const inputChangeHandler = useCallback((id: string, value: string) => {
     setMessage(value);
   }, []);
 
   const sendInputMessage = useCallback(() => {
-    if (message.trim() !== "") {
-      setMessages((prev) => [
-        ...prev,
-        {
-          self: message?.length % 2 === 0,
-          message: message,
-          time: time,
-          date: date,
-        },
-      ]);
+    if (message?.trim() !== "") {
+      sendMessage(message);
       setMessage("");
     }
-  }, [message, date, time]);
+  }, [message]);
 
   const keyDownHandler = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -57,31 +49,33 @@ const Chat = ({}: Props) => {
     sendInputMessage();
   }, [message]);
 
-  const userClickHandler = useCallback((id: string) => {
-    setActive(id);
+  const userClickHandler = useCallback((user: IUser) => {
+    setActiveUser(user);
   }, []);
 
-  return (
-    <div className="chat">
-      <div className={"chat__message_container"}>
-        <ChatMessages
-          users={users}
-          active={active}
-          onUserClick={userClickHandler}
-        />
+ 
+    return (
+      <div className="chat">
+        <div className={"chat__message_container"}>
+          <ChatMessages
+            users={users}
+            active={activeUser?.id || users[0].id}
+            onUserClick={userClickHandler}
+          />
+        </div>
+        <div className="chat__chat_container">
+          <ChatNavbar user={activeUser || users[0]} />
+          <ChatCanvas messages={messages} />
+          <InputComponent
+            onChange={inputChangeHandler}
+            onSendMsg={sendMsgHandler}
+            value={message}
+            onKeyDown={keyDownHandler}
+          />
+        </div>
       </div>
-      <div className="chat__chat_container">
-        <ChatNavbar user={users.filter((user) => user.id === active)[0]} />
-        <ChatCanvas messages={messages} />
-        <InputComponent
-          onChange={inputChangeHandler}
-          onSendMsg={sendMsgHandler}
-          value={message}
-          onKeyDown={keyDownHandler}
-        />
-      </div>
-    </div>
-  );
+    );
+  
 };
 
 export default Chat;

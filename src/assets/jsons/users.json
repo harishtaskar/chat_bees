@@ -2,7 +2,7 @@
   {
     "id": "987654321",
     "username": "john_doe",
-    "designation": "Software Engineer",
+    "occupation": "Software Engineer",
     "iconIndex": 1,
     "age": 28,
     "gender": "male"
@@ -10,7 +10,7 @@
   {
     "id": "123456789",
     "username": "jane_smith",
-    "designation": "Project Manager",
+    "occupation": "Project Manager",
     "iconIndex": 4,
     "age": 35,
     "gender": "female"
@@ -18,7 +18,7 @@
   {
     "id": "456789123",
     "username": "bob_jones",
-    "designation": "Data Analyst",
+    "occupation": "Data Analyst",
     "iconIndex": 3,
     "age": 42,
     "gender": "male"
@@ -26,7 +26,7 @@
   {
     "id": "789123456",
     "username": "alice_wang",
-    "designation": "UX Designer",
+    "occupation": "UX Designer",
     "iconIndex": 2,
     "age": 23,
     "gender": "female"
@@ -34,7 +34,7 @@
   {
     "id": "654321987",
     "username": "michael_nguyen",
-    "designation": "Systems Administrator",
+    "occupation": "Systems Administrator",
     "iconIndex": 5,
     "age": 39,
     "gender": "male"
@@ -42,7 +42,7 @@
   {
     "id": "321987654",
     "username": "emily_garcia",
-    "designation": "Product Manager",
+    "occupation": "Product Manager",
     "iconIndex": 8,
     "age": 45,
     "gender": "female"
@@ -50,7 +50,7 @@
   {
     "id": "741852963",
     "username": "david_lee",
-    "designation": "Software Developer",
+    "occupation": "Software Developer",
     "iconIndex": 6,
     "age": 20,
     "gender": "male"
@@ -58,7 +58,7 @@
   {
     "id": "852963741",
     "username": "sarah_brown",
-    "designation": "Data Scientist",
+    "occupation": "Data Scientist",
     "iconIndex": 7,
     "age": 31,
     "gender": "female"
@@ -66,7 +66,7 @@
   {
     "id": "369258147",
     "username": "ryan_smith",
-    "designation": "Business Analyst",
+    "occupation": "Business Analyst",
     "iconIndex": 12,
     "age": 37,
     "gender": "male"
@@ -74,7 +74,7 @@
   {
     "id": "147258369",
     "username": "lisa_kim",
-    "designation": "UI Designer",
+    "occupation": "UI Designer",
     "iconIndex": 11,
     "age": 22,
     "gender": "female"
@@ -82,7 +82,7 @@
   {
     "id": "258369147",
     "username": "kevin_nguyen",
-    "designation": "Network Engineer",
+    "occupation": "Network Engineer",
     "iconIndex": 9,
     "age": 28,
     "gender": "male"
@@ -90,7 +90,7 @@
   {
     "id": "963852741",
     "username": "natalie_chen",
-    "designation": "Marketing Specialist",
+    "occupation": "Marketing Specialist",
     "iconIndex": 10,
     "age": 40,
     "gender": "female"
@@ -98,7 +98,7 @@
   {
     "id": "852741963",
     "username": "jason_patel",
-    "designation": "Quality Assurance Engineer",
+    "occupation": "Quality Assurance Engineer",
     "iconIndex": 13,
     "age": 33,
     "gender": "male"
@@ -106,7 +106,7 @@
   {
     "id": "741963852",
     "username": "olivia_adams",
-    "designation": "Financial Analyst",
+    "occupation": "Financial Analyst",
     "iconIndex": 6,
     "age": 27,
     "gender": "female"
