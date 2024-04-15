@@ -8,10 +8,10 @@ import { modalAtom, userProfileAtom } from "@/state/Atom";
 
 type Props = {
   user: IUser;
-  isActive: boolean;
+  isActive?: boolean;
 };
 
-const UserComponent = ({ user, isActive }: Props) => {
+const UserComponent = ({ user, isActive = false }: Props) => {
   const setActiveModal = useSetRecoilState(modalAtom);
   const setUserProfileDetails = useSetRecoilState(userProfileAtom);
   const profileClickHandler = useCallback(

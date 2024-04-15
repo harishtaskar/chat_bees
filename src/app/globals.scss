@@ -102,10 +102,15 @@ body {
 }
 
 .link {
+    border: none;
+    outline: none;
+    font-size: 16px;
     margin-top: 4px;
     font-weight: 500;
     text-decoration: none;
     color: var(--primary-color);
+    background-color: transparent;
+    cursor: pointer;
 
     @media (max-width: 840px) {
         font-size: 14px;

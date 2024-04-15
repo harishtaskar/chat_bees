@@ -3,19 +3,16 @@ import "./index.scss";
 import UserComponent from "../user/UserComponent";
 
 type Props = {
-  user: IUser;
+  user?: IUser;
 };
 
 const ChatNavbar = ({ user }: Props) => {
   return (
-    <div className="chat_navbar">
-      {
-        <UserComponent
-          user={user}
-          isActive={false}
-        />
-      }
-    </div>
+    user && (
+      <div className="chat_navbar">
+        <UserComponent user={user} isActive={false} />
+      </div>
+    )
   );
 };
 

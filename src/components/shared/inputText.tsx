@@ -45,7 +45,7 @@ const InputText = ({
   inputTextStyle,
   autoComplete = "on",
   onKeyDown,
-  max,
+  max = 99999999999999,
   min = 0,
 }: Props) => {
   const [type, setType] = useState<string>(inputType || "text");
@@ -63,7 +63,7 @@ const InputText = ({
       if (
         e.target.value.toString().length < minLength ||
         e.target.value.toString().length > maxLength ||
-        e.target.value > (max || 2 ^ 53) ||
+        e.target.value > max ||
         e.target.value < min
       ) {
         onChange(id, null);

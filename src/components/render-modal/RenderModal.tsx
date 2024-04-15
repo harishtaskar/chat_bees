@@ -6,6 +6,8 @@ import { modalAtom } from "@/state/Atom";
 import InvalidScreen from "./InvalidScreen";
 import UpdateProfile from "../profile/UpdateProfile";
 import UserProfile from "../profile/UserProfile";
+import ChangePassword from "../profile/ChangePassword";
+import SearchUser from "../search-user/SearchUser";
 
 type Props = {};
 
@@ -26,6 +28,10 @@ const RenderModal = (props: Props) => {
       return <EditProfilePicture onClose={onClose} />;
     case "update-profile":
       return <UpdateProfile onClose={onClose} />;
+    case "change-password":
+      return <ChangePassword onClose={onClose} />;
+    case "search-user":
+      return <SearchUser onClose={onClose} />;
     case "invalid-device":
       return <InvalidScreen />;
 

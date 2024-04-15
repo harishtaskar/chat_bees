@@ -1,11 +1,10 @@
 "use client";
-import React, { CSSProperties, useEffect } from "react";
+import React, { CSSProperties } from "react";
 import UserComponent from "../user/UserComponent";
 import "./index.scss";
 import Badge from "../shared/Badge";
-import { useRecoilState } from "recoil";
-import { allUsersAtom } from "@/state/Atom";
-import useNetwork from "@/hooks/useNetwork";
+import { useSetRecoilState } from "recoil";
+import { modalAtom } from "@/state/Atom";
 
 type Props = {
   users: any;
@@ -14,28 +13,19 @@ type Props = {
   styles?: CSSProperties;
 };
 
-const ChatMessages = ({ onUserClick, active, styles }: Props) => {
-  const [users, setUsers] = useRecoilState(allUsersAtom);
-  const { getRequest } = useNetwork();
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await getRequest("/user/users");
-      if (response?.res === "ok") {
-        setUsers(response.users);
-      }
-    };
-    fetchUsers();
-  }, []);
-
+const ChatMessages = ({ users, onUserClick, active, styles }: Props) => {
+  const setActiveModel = useSetRecoilState(modalAtom);
   return (
     <div className="messeges" style={styles}>
       <div className="messeges__topbar">
         <div className="messeges__title">
           Messeges <Badge text={23} />
         </div>
-        <button className="messeges__btn">
-          <i className="ri-add-circle-fill ri-xl" />
+        <button
+          className="messeges__btn"
+          onClick={() => setActiveModel("search-user")}
+        >
+          <i className="ri-add-circle-fill ri-2x" />
         </button>
       </div>
       <ul className="messeges__list">
@@ -44,11 +34,11 @@ const ChatMessages = ({ onUserClick, active, styles }: Props) => {
             <li
               className="messeges__list__item"
               onClick={() => onUserClick(user)}
-              key={user.id}
+              key={user.user_id}
             >
               <UserComponent
                 user={user}
-                isActive={user.id === active || false}
+                isActive={user?.user_id === active || false}
               />
             </li>
           );

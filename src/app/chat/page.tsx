@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import "./index.scss";
-import users from "@/assets/jsons/users.json";
+// import users from "@/assets/jsons/users.json";
 import ChatNavbar from "@/components/navbar/ChatNavbar";
 import InputComponent from "@/components/chat/InputComponent";
 import ChatCanvas from "@/components/chat/ChatCanvas";
@@ -10,7 +10,8 @@ import { useRecoilState } from "recoil";
 import ChatMessages from "@/components/chat/ChatMessages";
 import { activeUserAtom } from "@/state/Atom";
 import { useSocket } from "@/state/SocketProvider";
-
+import { allUsersAtom } from "@/state/Atom";
+import useNetwork from "@/hooks/useNetwork";
 
 type Props = {};
 
@@ -22,6 +23,18 @@ const Chat = ({}: Props) => {
     activeUserAtom
   );
 
+  const [users, setUsers] = useRecoilState(allUsersAtom);
+  const { getRequest } = useNetwork();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await getRequest("/user/users");
+      if (response?.res === "ok") {
+        setUsers(response.users);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   const inputChangeHandler = useCallback((id: string, value: string) => {
     setMessage(value);
@@ -53,29 +66,27 @@ const Chat = ({}: Props) => {
     setActiveUser(user);
   }, []);
 
- 
-    return (
-      <div className="chat">
-        <div className={"chat__message_container"}>
-          <ChatMessages
-            users={users}
-            active={activeUser?.id || users[0].id}
-            onUserClick={userClickHandler}
-          />
-        </div>
-        <div className="chat__chat_container">
-          <ChatNavbar user={activeUser || users[0]} />
-          <ChatCanvas messages={messages} />
-          <InputComponent
-            onChange={inputChangeHandler}
-            onSendMsg={sendMsgHandler}
-            value={message}
-            onKeyDown={keyDownHandler}
-          />
-        </div>
+  return (
+    <div className="chat">
+      <div className={"chat__message_container"}>
+        <ChatMessages
+          users={users}
+          active={activeUser?.user_id}
+          onUserClick={userClickHandler}
+        />
       </div>
-    );
-  
+      <div className="chat__chat_container">
+        <ChatNavbar user={activeUser} />
+        <ChatCanvas messages={messages} />
+        <InputComponent
+          onChange={inputChangeHandler}
+          onSendMsg={sendMsgHandler}
+          value={message}
+          onKeyDown={keyDownHandler}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Chat;

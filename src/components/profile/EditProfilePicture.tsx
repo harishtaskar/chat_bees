@@ -22,7 +22,7 @@ const EditProfilePicture = ({ onClose }: Props) => {
         const response = await patchRequest("/user/update", {
           updates: { iconIndex: selectedIconIndex },
         });
-        if (response.res === "ok") {
+        if (response?.res === "ok") {
           setUser(response.user);
         }
       };

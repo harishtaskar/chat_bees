@@ -12,7 +12,7 @@ type Props = {
 };
 
 const UserProfile = ({ onClose }: Props) => {
-  const userProfile: IUser = useRecoilValue(userProfileAtom);
+  const userProfile = useRecoilValue(userProfileAtom);
   const renderBody = useMemo(() => {
     return (
       <div className="body">
@@ -20,24 +20,24 @@ const UserProfile = ({ onClose }: Props) => {
         <div className={"body__container"}>
           <div className={"body__container__pfp_div"}>
             <UserIcon
-              insectIndex={userProfile.iconIndex || 0}
+              insectIndex={userProfile?.iconIndex}
               width={80}
               height={80}
             />
           </div>
           <div className={"body__container__details"}>
             <span className={"body__container__details__title"}>
-              {userProfile.username}
+              {userProfile?.username}
             </span>
             <span className={"body__container__details__subtitle"}>
-              {userProfile.occupation}
+              {userProfile?.occupation}
             </span>
             <div className={"body__container__details__detail"}>
               <span className={"body__container__details__detail__text"}>
-                {userProfile.age}
+                {userProfile?.age}
               </span>
               <span className={"body__container__details__detail__text"}>
-                {userProfile.gender}
+                {userProfile?.gender}
               </span>
             </div>
           </div>

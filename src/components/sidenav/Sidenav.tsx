@@ -95,7 +95,7 @@ const Sidenav = ({}: Props) => {
                 <ChatMessages
                   users={users}
                   onUserClick={userClickHandler}
-                  active={activeUser?.id}
+                  active={activeUser?.user_id}
                   styles={{ maxHeight: "70vh", height: "100%" }}
                 />
               }

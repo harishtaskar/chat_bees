@@ -38,12 +38,12 @@ export const Insect = [
 ];
 
 type Props = {
-  insectIndex: number;
+  insectIndex?: number;
   width?: number;
   height?: number;
 };
 
-const UserIcon = ({ insectIndex, width = 30, height = 30 }: Props) => {
+const UserIcon = ({ insectIndex = 0, width = 30, height = 30 }: Props) => {
   return (
     <div className="icon">
       <Image

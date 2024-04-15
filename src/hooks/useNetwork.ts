@@ -70,7 +70,6 @@ const useNetwork = () => {
             Authorization: token,
           },
         });
-        console.log(response);
         const data = await response.data;
         setData(data);
         return data;
