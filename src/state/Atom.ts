@@ -17,7 +17,17 @@ export const userAtom = atom<IUser | undefined>({
 
 export const allUsersAtom = atom<IUser[] | undefined>({
   key: "all-user-atom",
-  default: [],
+  default: undefined,
+});
+
+export const connectionsAtom = atom<IUser[] | undefined>({
+  key: "connections-atom",
+  default: undefined,
+});
+
+export const recallConnectionAPI = atom<boolean>({
+  key: "recall-connection-api",
+  default: false,
 });
 
 //user which is currently chating with us

@@ -8,6 +8,7 @@ import UpdateProfile from "../profile/UpdateProfile";
 import UserProfile from "../profile/UserProfile";
 import ChangePassword from "../profile/ChangePassword";
 import SearchUser from "../search-user/SearchUser";
+import DeleteProfile from "../profile/DeleteProfile";
 
 type Props = {};
 
@@ -30,6 +31,8 @@ const RenderModal = (props: Props) => {
       return <UpdateProfile onClose={onClose} />;
     case "change-password":
       return <ChangePassword onClose={onClose} />;
+    case "delete-profile":
+      return <DeleteProfile onClose={onClose} />;
     case "search-user":
       return <SearchUser onClose={onClose} />;
     case "invalid-device":

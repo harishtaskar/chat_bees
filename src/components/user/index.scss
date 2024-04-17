@@ -70,6 +70,36 @@
             }
         }
 
+        &__second {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 4px;
+            position: relative;
+
+            &__menu {
+                position: absolute;
+                top: 20px;
+                right: 0px;
+                background-color: var(--white);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 12px 8px;
+                border-radius: 4px;
+                width: fit-content;
+                z-index: 4;
+                box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
+                -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
+                -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
+
+                &__item {
+                    white-space: nowrap;
+                }
+
+            }
+        }
+
     }
 
     &__active {

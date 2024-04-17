@@ -1,20 +1,49 @@
 "use client";
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useEffect, useCallback } from "react";
 import UserComponent from "../user/UserComponent";
 import "./index.scss";
 import Badge from "../shared/Badge";
-import { useSetRecoilState } from "recoil";
-import { modalAtom } from "@/state/Atom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  activeUserAtom,
+  connectionsAtom,
+  modalAtom,
+  recallConnectionAPI,
+  userAtom,
+} from "@/state/Atom";
+import useNetwork from "@/hooks/useNetwork";
+import SkeletonLoader from "../shared/SkeletonLoader";
+import { toast } from "react-toastify";
 
 type Props = {
-  users: any;
-  onUserClick: Function;
-  active?: string;
   styles?: CSSProperties;
 };
 
-const ChatMessages = ({ users, onUserClick, active, styles }: Props) => {
+const ChatMessages = ({ styles }: Props) => {
+  const user = useRecoilValue(userAtom);
+  const recallCAPI = useRecoilValue(recallConnectionAPI);
   const setActiveModel = useSetRecoilState(modalAtom);
+  const [activeUser, setActiveUser] = useRecoilState(activeUserAtom);
+  const [connections, setConnections] = useRecoilState(connectionsAtom);
+  const { getRequest } = useNetwork();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await getRequest("/user/connections");
+      if (response?.res === "ok") {
+        setConnections(response.connections);
+      } else {
+        setConnections(undefined);
+        toast.error("Something went wrong");
+      }
+    };
+    fetchUsers();
+  }, [recallCAPI]);
+
+  const onUserClick = useCallback((user: IUser) => {
+    setActiveUser(user);
+  }, []);
+
   return (
     <div className="messeges" style={styles}>
       <div className="messeges__topbar">
@@ -23,26 +52,45 @@ const ChatMessages = ({ users, onUserClick, active, styles }: Props) => {
         </div>
         <button
           className="messeges__btn"
-          onClick={() => setActiveModel("search-user")}
+          onClick={(e: any) => {
+            e.stopPropagation();
+            setActiveModel("search-user");
+          }}
         >
           <i className="ri-add-circle-fill ri-2x" />
         </button>
       </div>
       <ul className="messeges__list">
-        {users?.map((user: IUser) => {
-          return (
-            <li
-              className="messeges__list__item"
-              onClick={() => onUserClick(user)}
-              key={user.user_id}
+        {connections ? (
+          connections?.map((user: IUser) => {
+            return (
+              <li
+                className="messeges__list__item"
+                onClick={() => onUserClick(user)}
+                key={user.user_id}
+              >
+                <UserComponent
+                  user={user}
+                  isActive={user?.user_id === activeUser?.user_id}
+                />
+              </li>
+            );
+          })
+        ) : (
+          <SkeletonLoader
+            style={{ width: "312px", height: "60px", borderRadius: "8px" }}
+            count={10}
+          />
+        )}
+        {!connections ||
+          (connections?.length === 0 && (
+            <div
+              className={"user"}
+              style={{ whiteSpace: "nowrap", color: "var(--text-color-2)" }}
             >
-              <UserComponent
-                user={user}
-                isActive={user?.user_id === active || false}
-              />
-            </li>
-          );
-        })}
+              You do not have any connections
+            </div>
+          ))}
       </ul>
     </div>
   );

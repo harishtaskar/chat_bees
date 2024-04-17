@@ -1,17 +1,15 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./index.scss";
 // import users from "@/assets/jsons/users.json";
 import ChatNavbar from "@/components/navbar/ChatNavbar";
 import InputComponent from "@/components/chat/InputComponent";
 import ChatCanvas from "@/components/chat/ChatCanvas";
 import { messagesAtom } from "@/state/Atom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import ChatMessages from "@/components/chat/ChatMessages";
 import { activeUserAtom } from "@/state/Atom";
 import { useSocket } from "@/state/SocketProvider";
-import { allUsersAtom } from "@/state/Atom";
-import useNetwork from "@/hooks/useNetwork";
 
 type Props = {};
 
@@ -19,22 +17,9 @@ const Chat = ({}: Props) => {
   const { sendMessage } = useSocket();
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useRecoilState(messagesAtom);
-  const [activeUser, setActiveUser] = useRecoilState<IUser | undefined>(
+  const activeUser : IUser | undefined = useRecoilValue(
     activeUserAtom
   );
-
-  const [users, setUsers] = useRecoilState(allUsersAtom);
-  const { getRequest } = useNetwork();
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await getRequest("/user/users");
-      if (response?.res === "ok") {
-        setUsers(response.users);
-      }
-    };
-    fetchUsers();
-  }, []);
 
   const inputChangeHandler = useCallback((id: string, value: string) => {
     setMessage(value);
@@ -62,18 +47,12 @@ const Chat = ({}: Props) => {
     sendInputMessage();
   }, [message]);
 
-  const userClickHandler = useCallback((user: IUser) => {
-    setActiveUser(user);
-  }, []);
+ 
 
   return (
     <div className="chat">
       <div className={"chat__message_container"}>
-        <ChatMessages
-          users={users}
-          active={activeUser?.user_id}
-          onUserClick={userClickHandler}
-        />
+        <ChatMessages />
       </div>
       <div className="chat__chat_container">
         <ChatNavbar user={activeUser} />

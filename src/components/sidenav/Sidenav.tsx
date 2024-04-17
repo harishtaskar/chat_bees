@@ -8,17 +8,11 @@ import { usePathname } from "next/navigation";
 import Bee from "../../assets/images/bee.png";
 import MessagesPopup from "../shared/MessagesPopup";
 import ChatMessages from "../chat/ChatMessages";
-import users from "../../assets/jsons/users.json";
-import { useRecoilState } from "recoil";
-import { activeUserAtom } from "@/state/Atom";
 
 type Props = {};
 
 const Sidenav = ({}: Props) => {
   const msgRef = useRef<any>(null);
-  const [activeUser, setActiveUser] = useRecoilState<IUser | undefined>(
-    activeUserAtom
-  );
   const [popup, setPopup] = useState<boolean>(false);
 
   // clicked outside of msgDiv
@@ -34,10 +28,6 @@ const Sidenav = ({}: Props) => {
     }
     global.window?.addEventListener("click", handler);
     return () => global.window?.removeEventListener("click", handler);
-  }, []);
-
-  const userClickHandler = useCallback((user: IUser) => {
-    setActiveUser(user);
   }, []);
 
   const pathname = usePathname();
@@ -92,12 +82,7 @@ const Sidenav = ({}: Props) => {
           {popup && (
             <MessagesPopup
               body={
-                <ChatMessages
-                  users={users}
-                  onUserClick={userClickHandler}
-                  active={activeUser?.user_id}
-                  styles={{ maxHeight: "70vh", height: "100%" }}
-                />
+                <ChatMessages styles={{ maxHeight: "70vh", height: "100%" }} />
               }
             />
           )}

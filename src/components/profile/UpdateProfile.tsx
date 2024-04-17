@@ -96,22 +96,6 @@ const UpdateProfile = ({ onClose }: Props) => {
               value={user?.gender}
             />
           </div>
-          {/* <InputText
-            id="newpassword"
-            onChange={() => {}}
-            inputType="password"
-            label="New Password"
-            password={true}
-            require={false}
-          />
-          <InputText
-            id="confirm_password"
-            onChange={() => {}}
-            inputType="password"
-            label="Confirm Password"
-            password={true}
-            require={false}
-          /> */}
           <div className="horizontaldiv">
             <SecondaryButton
               name={"Cancel"}
@@ -132,6 +116,13 @@ const UpdateProfile = ({ onClose }: Props) => {
               onClick={() => setActiveModal("change-password")}
             >
               Change Password
+            </button>
+            <button
+              className={"link"}
+              onClick={() => setActiveModal("delete-profile")}
+              style={{color: "var(--red-color)"}}
+            >
+              Delete Profile
             </button>
           </div>
         </div>

@@ -1,5 +1,6 @@
 interface IUser {
   user_id?: string;
+  group_id?: string;
   username: string;
   password?: string;
   occupation: string;

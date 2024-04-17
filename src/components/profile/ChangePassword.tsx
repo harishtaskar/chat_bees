@@ -6,6 +6,8 @@ import PrimaryButton, { SecondaryButton } from "../shared/Buttons";
 import "./index.scss";
 import useNetwork from "@/hooks/useNetwork";
 import { toast } from "react-toastify";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userAtom } from "@/state/Atom";
 
 type Props = {
   onClose: React.MouseEventHandler<HTMLButtonElement>;
@@ -18,6 +20,7 @@ type Input = {
 };
 
 const ChangePassword = ({ onClose }: Props) => {
+  const user: IUser | undefined = useRecoilValue(userAtom);
   const [input, setInput] = useState<Input>({
     oldpassword: "",
     newpassword: "",
@@ -31,15 +34,25 @@ const ChangePassword = ({ onClose }: Props) => {
     });
   }, []);
 
-  //   const changePassword = async () => {
-  //     const response = await patchRequest("/user/update", { updates: user });
-  //     if (response?.res === "ok") {
-  //       setInput(response?.user);
-  //       toast.success("Profile Updated");
-  //     } else {
-  //       toast.error("Something went wrong");
-  //     }
-  //   };
+  const changePassword = async () => {
+    const response = await patchRequest("/user/update-password", {
+      passwords: {
+        user_id: user?.user_id,
+        oldpassword: input.oldpassword,
+        newpassword: input.newpassword,
+      },
+    });
+    if (response?.user.res === "ok") {
+      toast.success(response?.user.msg);
+      setInput({
+        oldpassword: "",
+        newpassword: "",
+        confirmpassword: "",
+      });
+    } else {
+      toast.error(response?.user.msg);
+    }
+  };
 
   const updateHandler = useCallback(
     async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -47,7 +60,7 @@ const ChangePassword = ({ onClose }: Props) => {
       if (input?.newpassword !== input?.confirmpassword) {
         toast.error("Password not matched");
       } else {
-        console.log(input);
+        changePassword();
       }
     },
     [input]
@@ -64,6 +77,7 @@ const ChangePassword = ({ onClose }: Props) => {
             inputType="password"
             label="Old Password"
             password={true}
+            value={input.oldpassword}
           />
           <InputText
             id="newpassword"
@@ -71,6 +85,7 @@ const ChangePassword = ({ onClose }: Props) => {
             inputType="password"
             label="New Password"
             password={true}
+            value={input.newpassword}
           />
 
           <InputText
@@ -79,6 +94,7 @@ const ChangePassword = ({ onClose }: Props) => {
             inputType="password"
             label="Confirm Password"
             password={true}
+            value={input.confirmpassword}
           />
           <div className="horizontaldiv">
             <SecondaryButton
@@ -101,7 +117,6 @@ const ChangePassword = ({ onClose }: Props) => {
 
   return (
     <Modal
-      closeBtn={false}
       body={renderBody}
       onClose={onClose}
       modalstyle={{ width: "100%", margin: "0px 20px", maxWidth: "500px" }}

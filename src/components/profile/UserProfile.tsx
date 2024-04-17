@@ -50,7 +50,11 @@ const UserProfile = ({ onClose }: Props) => {
     <Modal
       body={renderBody}
       onClose={onClose}
-      modalstyle={{ margin: "0px 20px", maxWidth: "560px" }}
+      modalstyle={{
+        margin: "0px 20px",
+        maxWidth: "560px",
+        borderRadius: "12px",
+      }}
     />
   );
 };
