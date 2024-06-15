@@ -8,3 +8,10 @@ interface IUser {
   age: number | null;
   iconIndex?: number;
 }
+
+interface IMessage {
+  from_user: string;
+  text: string;
+  sendAt?: Date; // Optional, because it has a default value
+  conversation_id: mongoose.Types.ObjectId;
+}

@@ -10,7 +10,7 @@ type SocketProvider = {
 };
 
 interface ISocketContext {
-  sendMessage: (msg: string) => any;
+  sendMessage: (msg: IMessage) => any;
 }
 
 const SocketContext = React.createContext<ISocketContext | null>(null);
@@ -33,36 +33,38 @@ const SocketProvider = ({ children }: SocketProvider) => {
   const sendMessage: ISocketContext["sendMessage"] = useCallback(
     (msg) => {
       if (socket) {
-        socket.emit("event:message", { message: msg });
+        socket.emit("event:message", msg);
       }
     },
     [socket]
   );
 
   const onMessageRec = useCallback((msg: string) => {
-    const { message } = JSON.parse(msg) as { message: string };
+    const { text } = JSON.parse(msg) as IMessage;
+    console.log("New Message ==", text);
     setMessages((prev) => [
       ...prev,
       {
         self: true,
-        message: message,
+        message: text,
         time: time,
         date: date,
       },
     ]);
   }, []);
 
-  // useEffect(() => {
-  //   const _socket: Socket = io(URL);
-  //   _socket.on("message", onMessageRec);
-  //   setSocket(_socket);
+  useEffect(() => {
+    const _socket: Socket = io(URL);
+    console.log("URL", URL);
+    _socket.on("message", onMessageRec);
+    setSocket(_socket);
 
-  //   return () => {
-  //     _socket.off("message", onMessageRec);
-  //     _socket.disconnect();
-  //     setSocket(undefined);
-  //   };
-  // }, []);
+    return () => {
+      _socket.off("message", onMessageRec);
+      _socket.disconnect();
+      setSocket(undefined);
+    };
+  }, []);
 
   return (
     <SocketContext.Provider value={{ sendMessage }}>

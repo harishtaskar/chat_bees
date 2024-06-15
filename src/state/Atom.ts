@@ -5,7 +5,7 @@ export const modalAtom = atom({
   default: "hello",
 });
 
-export const messagesAtom = atom<any[]>({
+export const messagesAtom = atom<IMessage[]>({
   key: "message-atom",
   default: [],
 });

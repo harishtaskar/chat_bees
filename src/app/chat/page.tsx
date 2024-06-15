@@ -17,9 +17,7 @@ const Chat = ({}: Props) => {
   const { sendMessage } = useSocket();
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useRecoilState(messagesAtom);
-  const activeUser : IUser | undefined = useRecoilValue(
-    activeUserAtom
-  );
+  const activeUser: IUser | undefined = useRecoilValue(activeUserAtom);
 
   const inputChangeHandler = useCallback((id: string, value: string) => {
     setMessage(value);
@@ -27,7 +25,7 @@ const Chat = ({}: Props) => {
 
   const sendInputMessage = useCallback(() => {
     if (message?.trim() !== "") {
-      sendMessage(message);
+      sendMessage({ text: message, from_user: "", conversation_id: "" });
       setMessage("");
     }
   }, [message]);
@@ -46,8 +44,6 @@ const Chat = ({}: Props) => {
   const sendMsgHandler = useCallback(() => {
     sendInputMessage();
   }, [message]);
-
- 
 
   return (
     <div className="chat">
