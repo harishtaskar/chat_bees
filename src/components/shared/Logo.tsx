@@ -15,8 +15,8 @@ const Logo = ({ style, image=true }: Props) => {
         src={Bee}
         className="logo__bee_logo"
         alt="bee_logo"
-        width={40}
-        height={40}
+        width={80}
+        height={80}
       />)}
       Chat <span className="logo__bees">bees</span>
     </div>

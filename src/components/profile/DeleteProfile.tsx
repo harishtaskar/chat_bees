@@ -45,7 +45,7 @@ const DeleteProfile = ({ onClose }: Props) => {
       toast.success(response?.msg);
       setInput("");
       global.window.localStorage.setItem("Authorization", "");
-      router.push("/signin");
+      router.push("/user/signin");
     } else {
       toast.error(response?.msg || "Something went wrong");
     }

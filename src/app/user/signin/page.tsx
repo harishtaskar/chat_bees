@@ -2,15 +2,16 @@
 import Modal from "@/components/Modals/Modal";
 import Logo from "@/components/shared/Logo";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import "../index.scss";
+import "../../index.scss";
 import InputText from "@/components/shared/inputText";
 import PrimaryButton from "@/components/shared/Buttons";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 import useNetwork from "@/hooks/useNetwork";
 import useAuth from "@/hooks/useAuth";
-import SplashScreen from "../loading";
+import SplashScreen from "@/app/loading";
+import illustration from "@/assets/images/Illustration.svg";
+import Image from "next/image";
 
 type Input = {
   username: string;
@@ -22,7 +23,7 @@ const Signin = () => {
     username: "",
     password: "",
   });
-  const { getRequest, loading: netLoading } = useNetwork();
+  const { postRequest, loading: netLoading } = useNetwork();
   const { loginUser, authorizeUser, loading } = useAuth();
 
   useEffect(() => {
@@ -45,10 +46,15 @@ const Signin = () => {
   const submitHandler = useCallback(async () => {
     //Add Signin logic here
     try {
-      const response = await getRequest("/user/signin", {
-        username: input.username,
-        password: input.password,
-      });
+      const response = await postRequest(
+        "/user/signin",
+        {},
+        {
+          username: input.username,
+          password: input.password,
+        }
+      );
+      console.log("login response==>", response);
       if (response.res === "ok") {
         loginUser(response.token, response.user);
         toast.success(response.msg);
@@ -93,10 +99,10 @@ const Signin = () => {
             isDisable={netLoading || !validateInputs}
           />
           <div className="horizontaldiv">
-            <Link className={"link"} href="/signup">
+            <Link className={"link"} href="/user/signup">
               Signup
             </Link>
-            <Link className={"link"} href="/signin">
+            <Link className={"link"} href="/user/signin">
               Forgot Password
             </Link>
           </div>
@@ -110,9 +116,6 @@ const Signin = () => {
   } else {
     return (
       <div className="page">
-        <div className="page__logo">
-          <Logo />
-        </div>
         <Modal
           body={renderBody}
           closeBtn={false}

@@ -12,13 +12,19 @@ const useAuth = () => {
   const { getRequest } = useNetwork();
 
   const loginUser = useCallback((token: string, user: any) => {
-    if (token) {
-      localStorage.setItem("Authorization", token);
-      setUser(user);
-      router.push("/chat");
-    } else {
-      localStorage.setItem("Authorization", "");
-      router.push("/signin");
+    console.log("token response==>", token);
+    console.log("user response==>", user);
+    try {
+      if (token) {
+        localStorage.setItem("Authorization", `Bearer ${token}`);
+        setUser(user);
+        router.push("/chat");
+      } else {
+        localStorage.setItem("Authorization", "");
+        router.push("/user/signin");
+      }
+    } catch (error) {
+      console.log(error);
     }
   }, []);
 
@@ -39,7 +45,7 @@ const useAuth = () => {
           } else {
             setUser(undefined);
             if (redirectToSignin) {
-              router.push("/signin");
+              router.push("/user/signin");
               setLoading(false);
             }
           }
@@ -47,7 +53,7 @@ const useAuth = () => {
           setLoading(false);
           setUser(undefined);
           if (redirectToSignin) {
-            router.push("/signin");
+            router.push("/user/signin");
             setLoading(false);
           }
         }
@@ -56,7 +62,7 @@ const useAuth = () => {
     } else {
       setLoading(false);
       if (redirectToSignin) {
-        router.push("/signin");
+        router.push("/user/signin");
         setLoading(false);
       }
     }

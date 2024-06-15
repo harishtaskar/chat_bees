@@ -1,1 +1,2 @@
-export const PORT = process.env.PORT || "http://192.168.29.251:8080";
+import "dotenv/config";
+export const PORT = process.env.PORT || "http://localhost:8080";

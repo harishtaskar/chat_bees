@@ -102,7 +102,7 @@ const Sidenav = ({}: Props) => {
         </ul>
         <div className="sidenav__links__linkdiv">
           <Link
-            href={"/signin"}
+            href={"/user/signin"}
             className={`sidenav__links__linkdiv__link ${
               pathname === "/" ? "active" : ""
             }`}

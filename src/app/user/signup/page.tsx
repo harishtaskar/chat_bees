@@ -2,7 +2,7 @@
 import Modal from "@/components/Modals/Modal";
 import Logo from "@/components/shared/Logo";
 import React, { useCallback, useMemo, useState } from "react";
-import "../index.scss";
+import "../../index.scss";
 import InputText from "@/components/shared/inputText";
 import PrimaryButton from "@/components/shared/Buttons";
 import Link from "next/link";
@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import SelectBox from "@/components/shared/SelectBox";
 import useNetwork from "@/hooks/useNetwork";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import illustration from "@/assets/images/Illustration.svg";
 
 const Signup = () => {
   const [input, setInput] = useState<IUser | any>({
@@ -17,7 +19,7 @@ const Signup = () => {
     password: "",
     occupation: "",
     gender: "male",
-    age: "",
+    dob: "2002-04-30",
   });
   const { postRequest, loading, error } = useNetwork();
   const router = useRouter();
@@ -42,7 +44,7 @@ const Signup = () => {
     if (
       input?.username &&
       input?.occupation &&
-      input?.age &&
+      input?.dob &&
       input?.password &&
       input?.gender
     ) {
@@ -59,7 +61,7 @@ const Signup = () => {
       if (response.res === "ok") {
         toast.success(response.msg);
         setInput(undefined);
-        router.push("/chat");
+        router.push("/user/signin");
       } else {
         toast.info(response.msg);
       }
@@ -89,14 +91,15 @@ const Signup = () => {
           />
           <div className="horizontaldiv">
             <InputText
-              id="age"
+              id="dob"
               onChange={onChange}
-              inputType="number"
-              label="Age"
-              value={input?.age}
+              inputType="date"
+              label="Date of Birth"
+              value={input?.dob}
+              defaultValue={"2002-04-30"}
               max={99}
               min={16}
-              warning={"invalid age"}
+              warning={"invalid dob"}
             />
             <SelectBox
               id="gender"
@@ -133,10 +136,10 @@ const Signup = () => {
             isLoading={loading}
           />
           <div className="horizontaldiv">
-            <Link className={"link"} href="/signin">
+            <Link className={"link"} href="/user/signin">
               Signin
             </Link>
-            <Link className={"link"} href="/signup">
+            <Link className={"link"} href="/user/signup">
               Forgot Password
             </Link>
           </div>
@@ -147,9 +150,6 @@ const Signup = () => {
 
   return (
     <div className="page">
-      <div className="page__logo">
-        <Logo />
-      </div>
       <Modal
         body={renderBody}
         closeBtn={false}
