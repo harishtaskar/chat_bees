@@ -1,11 +1,12 @@
 "use client";
 import React, { useCallback, useMemo, useState } from "react";
 import Modal from "../Modals/Modal";
-import UserIcon, { Insect } from "../icons/Icons";
+import UserIcon from "../icons/UserIcon";
 import "./index.scss";
 import useNetwork from "@/hooks/useNetwork";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "@/state/Atom";
+import { Icons } from "../icons/Icons";
 
 type Props = {
   onClose: React.MouseEventHandler<HTMLButtonElement>;
@@ -36,7 +37,7 @@ const EditProfilePicture = ({ onClose }: Props) => {
     return (
       <div className="body">
         <div className={"body__icons"}>
-          {Insect.map((item: any, index: number) => {
+          {Icons.map((item: any, index: number) => {
             return (
               <div
                 key={item}
@@ -45,7 +46,7 @@ const EditProfilePicture = ({ onClose }: Props) => {
                 }`}
                 onClick={() => setSelectedIconIndex(index)}
               >
-                <UserIcon insectIndex={index} width={40} height={40} />
+                <UserIcon icon={item?.name} width={60} height={60} />
               </div>
             );
           })}

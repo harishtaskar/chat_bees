@@ -25,7 +25,13 @@ const Chat = ({}: Props) => {
 
   const sendInputMessage = useCallback(() => {
     if (message?.trim() !== "") {
-      sendMessage({ text: message, from_user: "", conversation_id: "" });
+      sendMessage({
+        content: message,
+        from_user: "harish.taskar",
+        conversation_id: "6665ec9ab5996575841bc49b",
+        status: 1,
+        type: "text",
+      });
       setMessage("");
     }
   }, [message]);

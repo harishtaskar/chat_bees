@@ -14,7 +14,7 @@ import {
 } from "@/state/Atom";
 import UserComponent from "../user/UserComponent";
 import LoaderBar from "../shared/LoaderBar";
-import UserIcon from "../icons/Icons";
+import UserIcon from "../icons/UserIcon";
 
 type Props = {
   onClose: React.MouseEventHandler<HTMLButtonElement>;
@@ -28,7 +28,7 @@ const SearchUser = ({ onClose }: Props) => {
   const { postRequest } = useNetwork();
   const connections = useRecoilValue(connectionsAtom);
 
-  const connection_ids = connections?.map((user) => user.user_id);
+  const connection_ids = connections?.map((user) => user.username);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -55,7 +55,7 @@ const SearchUser = ({ onClose }: Props) => {
     async (user: IUser) => {
       const response = await postRequest("/chat/start-conversation", {
         reciever_name: user.username,
-        reciever_id: user.user_id,
+        reciever_id: user?.username,
       });
       if (response.res === "ok") {
         toast.success("User Connected");
@@ -87,7 +87,7 @@ const SearchUser = ({ onClose }: Props) => {
                 <li key={user.user_id} className="body__list__list_item">
                   <div className={`user`}>
                     <div>
-                      <UserIcon insectIndex={user?.iconIndex || 0} />
+                      <UserIcon icon={user?.iconIndex || 0} />
                     </div>
                     <div className="user__container">
                       <div className={"user__container__first"}>

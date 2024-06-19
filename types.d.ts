@@ -1,17 +1,21 @@
 interface IUser {
-  user_id?: string;
-  group_id?: string;
   username: string;
-  password?: string;
+  profileicon?: string; // Optional, because it has a default value
   occupation: string;
-  gender: string;
-  age: number | null;
-  iconIndex?: number;
+  dob?: Date; // Optional, because it is not required
+  createdAt?: Date; // Optional, will be set by Mongoose
+  updatedAt?: Date; // Optional, can be set by Mongoose
+  gender: "male" | "female";
+  password: string;
+  salt: string;
+  status?: number;
 }
 
 interface IMessage {
   from_user: string;
-  text: string;
-  sendAt?: Date; // Optional, because it has a default value
+  content: string;
+  type: "text" | "gif" | "image";
+  sendAt?: Date; // Optional because it has a default value
   conversation_id: mongoose.Types.ObjectId;
+  status?: number;
 }

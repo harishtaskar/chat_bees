@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback, useState, useEffect, useRef } from "react";
 import "./index.scss";
-import UserIcon from "../icons/Icons";
+import UserIcon from "../icons/UserIcon";
 import Badge from "../shared/Badge";
 import { useSetRecoilState } from "recoil";
 import { modalAtom, userProfileAtom, recallConnectionAPI } from "@/state/Atom";
@@ -45,7 +45,7 @@ const UserComponent = ({ user, isActive = false }: Props) => {
   const removeConnectionHandler = useCallback(async (event: any) => {
     event.stopPropagation();
     const response = await deleteRequest("/chat/delete-conversation", {
-      group_id: user.group_id,
+      group_id: user.username,
     });
     if (response.res === "ok") {
       toast.success("Connection Closed");
@@ -59,7 +59,7 @@ const UserComponent = ({ user, isActive = false }: Props) => {
   return (
     <div className={`user ${isActive ? "user__active" : ""}`}>
       <div onClick={profileClickHandler}>
-        <UserIcon insectIndex={user?.iconIndex || 0} />
+        <UserIcon icon={user?.profileicon || 0} />
       </div>
       <div className="user__container">
         <div className={"user__container__first"}>

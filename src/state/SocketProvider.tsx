@@ -40,15 +40,13 @@ const SocketProvider = ({ children }: SocketProvider) => {
   );
 
   const onMessageRec = useCallback((msg: string) => {
-    const { text } = JSON.parse(msg) as IMessage;
-    console.log("New Message ==", text);
+    const message = JSON.parse(msg) as IMessage;
+    console.log("New Message ==", message);
     setMessages((prev) => [
       ...prev,
       {
         self: true,
-        message: text,
-        time: time,
-        date: date,
+        ...message,
       },
     ]);
   }, []);

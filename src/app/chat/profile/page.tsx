@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import "./index.scss";
-import UserIcon from "@/components/icons/Icons";
+import UserIcon from "@/components/icons/UserIcon";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { modalAtom, userAtom } from "@/state/Atom";
 
@@ -15,7 +15,7 @@ const Profile = ({}: Props) => {
     <div className="profile">
       <div className={"profile__container"}>
         <div className={"profile__container__pfp_div"}>
-          <UserIcon insectIndex={user?.iconIndex || 0} width={80} height={80} />
+          <UserIcon icon={user?.profileicon || 0} width={80} height={80} />
           <button
             className={"profile__container__pfp_div__edit_btn"}
             onClick={() => setActiveModal("edit-profile-picture")}
@@ -29,7 +29,7 @@ const Profile = ({}: Props) => {
         </span>
         <div className={"profile__container__details"}>
           <span className={"profile__container__details__text"}>
-            {user?.age}
+            {user?.dob?.toString()}
           </span>
           <span className={"profile__container__details__text"}>
             {user?.gender}

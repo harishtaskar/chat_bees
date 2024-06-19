@@ -85,7 +85,7 @@ const UpdateProfile = ({ onClose }: Props) => {
               inputType="number"
               label="Age"
               require={false}
-              value={user?.age}
+              value={user?.dob?.toString()}
             />
             <SelectBox
               id="gender"
@@ -120,7 +120,7 @@ const UpdateProfile = ({ onClose }: Props) => {
             <button
               className={"link"}
               onClick={() => setActiveModal("delete-profile")}
-              style={{color: "var(--red-color)"}}
+              style={{ color: "var(--red-color)" }}
             >
               Delete Profile
             </button>
