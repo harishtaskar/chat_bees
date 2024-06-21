@@ -1,11 +1,12 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import Modal from "../Modals/Modal";
 import "./index.scss";
 import { useRecoilValue } from "recoil";
 import { userProfileAtom } from "@/state/Atom";
 import Logo from "../shared/Logo";
-import UserIcon from "../icons/Icons";
+import { getUserAge } from "@/utils/DateTime";
+import UserIcon from "../icons/UserIcon";
 
 type Props = {
   onClose: React.MouseEventHandler<HTMLButtonElement>;
@@ -20,7 +21,7 @@ const UserProfile = ({ onClose }: Props) => {
         <div className={"body__container"}>
           <div className={"body__container__pfp_div"}>
             <UserIcon
-              icon={userProfile?.profileicon}
+              icon={userProfile?.profileIcon}
               width={120}
               height={120}
             />
@@ -34,7 +35,9 @@ const UserProfile = ({ onClose }: Props) => {
             </span>
             <div className={"body__container__details__detail"}>
               <span className={"body__container__details__detail__text"}>
-                {userProfile?.dob?.toString()}
+                {userProfile?.dob
+                  ? getUserAge(userProfile?.dob?.toString())
+                  : "XX"}
               </span>
               <span className={"body__container__details__detail__text"}>
                 {userProfile?.gender}

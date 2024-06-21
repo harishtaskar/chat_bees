@@ -4,6 +4,7 @@ import "./index.scss";
 import UserIcon from "@/components/icons/UserIcon";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { modalAtom, userAtom } from "@/state/Atom";
+import { getUserAge } from "@/utils/DateTime";
 
 type Props = {};
 
@@ -15,7 +16,7 @@ const Profile = ({}: Props) => {
     <div className="profile">
       <div className={"profile__container"}>
         <div className={"profile__container__pfp_div"}>
-          <UserIcon icon={user?.profileicon || 0} width={80} height={80} />
+          <UserIcon icon={user?.profileIcon || 0} width={80} height={80} />
           <button
             className={"profile__container__pfp_div__edit_btn"}
             onClick={() => setActiveModal("edit-profile-picture")}
@@ -29,7 +30,7 @@ const Profile = ({}: Props) => {
         </span>
         <div className={"profile__container__details"}>
           <span className={"profile__container__details__text"}>
-            {user?.dob?.toString()}
+            {user?.dob ? getUserAge(user?.dob?.toString()) : "XX"}
           </span>
           <span className={"profile__container__details__text"}>
             {user?.gender}

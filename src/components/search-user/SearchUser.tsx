@@ -53,15 +53,15 @@ const SearchUser = ({ onClose }: Props) => {
 
   const addConnectionHandler = useCallback(
     async (user: IUser) => {
-      const response = await postRequest("/chat/start-conversation", {
-        reciever_name: user.username,
-        reciever_id: user?.username,
+      const response = await postRequest("/chat/init", {
+        group_users: [`${user?._id}`],
+        group_name: `${user?.username}`,
       });
-      if (response.res === "ok") {
+      if (response?.res === "ok") {
         toast.success("User Connected");
         setRecallConnectionsAPI((prev) => !prev);
       } else {
-        toast.error(response.msg);
+        toast.error(response?.msg);
       }
     },
     [users]
@@ -87,7 +87,7 @@ const SearchUser = ({ onClose }: Props) => {
                 <li key={user.user_id} className="body__list__list_item">
                   <div className={`user`}>
                     <div>
-                      <UserIcon icon={user?.iconIndex || 0} />
+                      <UserIcon icon={user?.profileicon || "icon1"} />
                     </div>
                     <div className="user__container">
                       <div className={"user__container__first"}>

@@ -4,7 +4,7 @@ import Modal from "../Modals/Modal";
 import UserIcon from "../icons/UserIcon";
 import "./index.scss";
 import useNetwork from "@/hooks/useNetwork";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { userAtom } from "@/state/Atom";
 import { Icons } from "../icons/Icons";
 
@@ -13,15 +13,15 @@ type Props = {
 };
 
 const EditProfilePicture = ({ onClose }: Props) => {
-  const [selectedIconIndex, setSelectedIconIndex] = useState(0);
+  const [user, setUser] = useRecoilState(userAtom);
   const { patchRequest } = useNetwork();
-  const setUser = useSetRecoilState(userAtom);
+  const [selectedIcon, setSelectedIcon] = useState(user?.profileIcon);
 
   const onSubmit = useCallback(
     (event: any) => {
       const updateProfile = async () => {
         const response = await patchRequest("/user/update", {
-          updates: { iconIndex: selectedIconIndex },
+          update: { profileIcon: selectedIcon },
         });
         if (response?.res === "ok") {
           setUser(response.user);
@@ -30,21 +30,21 @@ const EditProfilePicture = ({ onClose }: Props) => {
       updateProfile();
       onClose(event);
     },
-    [selectedIconIndex]
+    [selectedIcon]
   );
 
   const renderBody = useMemo(() => {
     return (
       <div className="body">
         <div className={"body__icons"}>
-          {Icons.map((item: any, index: number) => {
+          {Icons.map((item: any) => {
             return (
               <div
                 key={item}
                 className={`body__icons__icon ${
-                  selectedIconIndex === index && "body__icons__active"
+                  selectedIcon === item?.name && "body__icons__active"
                 }`}
-                onClick={() => setSelectedIconIndex(index)}
+                onClick={() => setSelectedIcon(item?.name)}
               >
                 <UserIcon icon={item?.name} width={60} height={60} />
               </div>
@@ -61,7 +61,7 @@ const EditProfilePicture = ({ onClose }: Props) => {
         </div>
       </div>
     );
-  }, [selectedIconIndex, onClose]);
+  }, [selectedIcon, onClose]);
   return (
     <Modal
       closeBtn={false}

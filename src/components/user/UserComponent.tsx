@@ -59,7 +59,7 @@ const UserComponent = ({ user, isActive = false }: Props) => {
   return (
     <div className={`user ${isActive ? "user__active" : ""}`}>
       <div onClick={profileClickHandler}>
-        <UserIcon icon={user?.profileicon || 0} />
+        <UserIcon icon={user?.profileIcon || "icon1"} />
       </div>
       <div className="user__container">
         <div className={"user__container__first"}>

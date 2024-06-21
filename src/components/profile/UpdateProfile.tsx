@@ -39,7 +39,7 @@ const UpdateProfile = ({ onClose }: Props) => {
   );
 
   const updateProfile = async () => {
-    const response = await patchRequest("/user/update", { updates: user });
+    const response = await patchRequest("/user/update", { update: user });
     if (response?.res === "ok") {
       setUser(response?.user);
       toast.success("Profile Updated");

@@ -12,6 +12,7 @@ import useNetwork from "@/hooks/useNetwork";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import illustration from "@/assets/images/Illustration.svg";
+import { getRandomUserIcon } from "@/utils/Utility";
 
 const Signup = () => {
   const [input, setInput] = useState<IUser | any>({
@@ -57,7 +58,10 @@ const Signup = () => {
   const submitHandler = useCallback(async () => {
     //Add Signup logic here
     try {
-      const response = await postRequest("/user/signup", input);
+      const response = await postRequest("/user/signup", {
+        ...input,
+        profileIcon: getRandomUserIcon(),
+      });
       if (response.res === "ok") {
         toast.success(response.msg);
         setInput(undefined);

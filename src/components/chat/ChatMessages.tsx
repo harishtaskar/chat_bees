@@ -31,7 +31,7 @@ const ChatMessages = ({ styles }: Props) => {
     const fetchUsers = async () => {
       const response = await getRequest("/user/connections");
       if (response?.res === "ok") {
-        setConnections(response.connections);
+        setConnections(response?.connections);
       } else {
         setConnections(undefined);
         toast.error("Something went wrong");
@@ -39,6 +39,7 @@ const ChatMessages = ({ styles }: Props) => {
     };
     fetchUsers();
   }, [recallCAPI]);
+  console.log("connections==>", connections);
 
   const onUserClick = useCallback((user: IUser) => {
     setActiveUser(user);
@@ -67,11 +68,11 @@ const ChatMessages = ({ styles }: Props) => {
               <li
                 className="messeges__list__item"
                 onClick={() => onUserClick(user)}
-                key={user.user_id}
+                key={user?._id}
               >
                 <UserComponent
                   user={user}
-                  isActive={user?.user_id === activeUser?.user_id}
+                  isActive={user?._id === activeUser?._id}
                 />
               </li>
             );

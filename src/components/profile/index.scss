@@ -40,8 +40,8 @@
 
     &__active {
       box-sizing: border-box;
-      box-shadow: inset 0px 0px 0px 1.5px var(--primary-color);
-      border-radius: 8px;
+      box-shadow: inset 0px 0px 0px 3px var(--primary-color);
+      border-radius: 18px;
     }
   }
 
@@ -106,7 +106,7 @@
 
   &__container {
     width: calc(100% - 20px);
-    margin: 20px;
+    margin: 30px 40px;
     display: flex;
     align-items: center;
     justify-content: center;

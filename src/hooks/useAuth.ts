@@ -38,6 +38,7 @@ const useAuth = () => {
           });
           if (response.res === "ok") {
             setUser(response.user);
+            console.log(response.user);
             if (redirectToSignin) {
               router.push("/chat");
               setLoading(false);

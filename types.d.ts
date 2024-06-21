@@ -1,6 +1,7 @@
 interface IUser {
+  _id: string;
   username: string;
-  profileicon?: string; // Optional, because it has a default value
+  profileIcon?: string; // Optional, because it has a default value
   occupation: string;
   dob?: Date; // Optional, because it is not required
   createdAt?: Date; // Optional, will be set by Mongoose

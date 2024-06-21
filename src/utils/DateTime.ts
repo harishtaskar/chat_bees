@@ -19,3 +19,24 @@ export const currentDateTime = () => {
   // Output the current date and time
   return { date, time };
 };
+
+export const getUserAge = (dob: string) => {
+  const birthDate = new Date(dob);
+
+  // Get the current date
+  const today = new Date();
+
+  // Calculate the difference in years
+  let age = today.getFullYear() - birthDate.getFullYear();
+
+  // Adjust age if the birth date hasn't occurred yet this year
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  if (
+    monthDiff < 0 ||
+    (monthDiff === 0 && today.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
+};
