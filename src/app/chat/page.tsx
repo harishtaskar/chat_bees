@@ -10,6 +10,9 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import ChatMessages from "@/components/chat/ChatMessages";
 import { activeUserAtom } from "@/state/Atom";
 import { useSocket } from "@/state/SocketProvider";
+import Image from "next/image";
+import Logo from "@/components/shared/Logo";
+import illustration from "@/assets/images/Illustration.svg";
 
 type Props = {};
 
@@ -57,14 +60,28 @@ const Chat = ({}: Props) => {
         <ChatMessages />
       </div>
       <div className="chat__chat_container">
-        <ChatNavbar user={activeUser} />
-        <ChatCanvas messages={messages} />
-        <InputComponent
-          onChange={inputChangeHandler}
-          onSendMsg={sendMsgHandler}
-          value={message}
-          onKeyDown={keyDownHandler}
-        />
+        {activeUser ? (
+          <>
+            <ChatNavbar user={activeUser} />
+            <ChatCanvas messages={messages} />
+            <InputComponent
+              onChange={inputChangeHandler}
+              onSendMsg={sendMsgHandler}
+              value={message}
+              onKeyDown={keyDownHandler}
+            />
+          </>
+        ) : (
+          <div className="chat__chat_container__left">
+            <span className="chat__chat_container__left__text">Let's Chat</span>
+            <Image
+              src={illustration}
+              width={480}
+              height={480}
+              alt="illustartion"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

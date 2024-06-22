@@ -34,7 +34,11 @@ const SelectBox = ({
       >
         {options.map((item, index) => {
           return (
-            <option key={index} value={item}>
+            <option
+              key={index}
+              value={item}
+              className="select__dropdown__option"
+            >
               {item}
             </option>
           );

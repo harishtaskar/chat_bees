@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Modal from "../Modals/Modal";
 import InputText from "../shared/inputText";
 import PrimaryButton, { SecondaryButton } from "../shared/Buttons";
@@ -43,19 +43,25 @@ const UpdateProfile = ({ onClose }: Props) => {
     if (response?.res === "ok") {
       setUser(response?.user);
       toast.success("Profile Updated");
+      return true;
     } else {
       toast.error(response?.msg || "Something went wrong");
+      return false;
     }
   };
 
   const updateHandler = useCallback(
     async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       event.preventDefault();
-      await updateProfile();
-      onClose(event);
+      const isUpdated = await updateProfile();
+      if (isUpdated) {
+        onClose(event);
+      }
     },
     [user]
   );
+
+  console.log("date of birth ==>", user?.dob?.toString()?.substring(0, 10));
 
   const renderBody = useMemo(() => {
     return (
@@ -80,12 +86,15 @@ const UpdateProfile = ({ onClose }: Props) => {
           />
           <div className="horizontaldiv">
             <InputText
-              id="age"
+              id="dob"
               onChange={inputChangeHandler}
-              inputType="number"
-              label="Age"
-              require={false}
-              value={user?.dob?.toString()}
+              inputType="date"
+              label="Date of Birth"
+              value={user?.dob?.toString()?.substring(0, 10)}
+              defaultValue={user?.dob?.toString()?.substring(0, 10)}
+              max={99}
+              min={16}
+              warning={"invalid dob"}
             />
             <SelectBox
               id="gender"

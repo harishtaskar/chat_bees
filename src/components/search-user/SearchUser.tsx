@@ -28,7 +28,7 @@ const SearchUser = ({ onClose }: Props) => {
   const { postRequest } = useNetwork();
   const connections = useRecoilValue(connectionsAtom);
 
-  const connection_ids = connections?.map((user) => user.username);
+  const connection_ids = connections?.map((user) => user?._id);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -87,7 +87,7 @@ const SearchUser = ({ onClose }: Props) => {
                 <li key={user.user_id} className="body__list__list_item">
                   <div className={`user`}>
                     <div>
-                      <UserIcon icon={user?.profileicon || "icon1"} />
+                      <UserIcon icon={user?.profileIcon || "icon1"} />
                     </div>
                     <div className="user__container">
                       <div className={"user__container__first"}>
@@ -100,17 +100,26 @@ const SearchUser = ({ onClose }: Props) => {
                       </div>
                     </div>
                   </div>
-                  {!connection_ids?.includes(user.user_id) ? (
+                  {!connection_ids?.includes(user._id) ? (
                     <SecondaryButton
-                      name={"Add"}
+                      name={"connect"}
                       onClick={() => addConnectionHandler(user)}
-                      style={{ width: "fit-content", padding: "0px 15px" }}
+                      style={{
+                        width: "fit-content",
+                        padding: "0px 15px",
+                        minHeight: "40px",
+                      }}
                     />
                   ) : (
                     <PrimaryButton
-                      name={"Added"}
+                      name={"coneected"}
                       onClick={() => {}}
-                      style={{ width: "fit-content", padding: "0px 15px" }}
+                      style={{
+                        width: "fit-content",
+                        padding: "0px 15px",
+                        minHeight: "40px",
+                        cursor: "not-allowed",
+                      }}
                       isDisable={true}
                     />
                   )}

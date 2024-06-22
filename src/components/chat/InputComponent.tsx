@@ -23,7 +23,8 @@ const InputComponent = ({ onChange, onSendMsg, value, onKeyDown }: Props) => {
         onKeyDown={onKeyDown}
       />
       <button className="input__send_btn" onClick={onSendMsg}>
-        <i className="ri-send-plane-fill ri-xl" />
+        {/* <i className="ri-send-plane-fill ri-xl" /> */}
+        <i className="ri-send-plane-2-fill ri-xl" onClick={onSendMsg} />
       </button>
     </div>
   );

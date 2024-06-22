@@ -36,21 +36,18 @@ const ChangePassword = ({ onClose }: Props) => {
 
   const changePassword = async () => {
     const response = await patchRequest("/user/update-password", {
-      passwords: {
-        user_id: user?.user_id,
-        oldpassword: input.oldpassword,
-        newpassword: input.newpassword,
-      },
+      oldPassword: input.oldpassword,
+      newPassword: input.newpassword,
     });
-    if (response?.user.res === "ok") {
-      toast.success(response?.user.msg);
+    if (response?.res === "ok") {
+      toast.success(response?.msg);
       setInput({
         oldpassword: "",
         newpassword: "",
         confirmpassword: "",
       });
     } else {
-      toast.error(response?.user.msg);
+      toast.error(response?.msg);
     }
   };
 
@@ -65,6 +62,16 @@ const ChangePassword = ({ onClose }: Props) => {
     },
     [input]
   );
+
+  const validateInputs = useCallback(() => {
+    if (
+      input?.confirmpassword === input?.newpassword &&
+      input?.newpassword?.length >= 8
+    ) {
+      return true;
+    }
+    return false;
+  }, [input]);
 
   const renderBody = useMemo(() => {
     return (
@@ -106,7 +113,7 @@ const ChangePassword = ({ onClose }: Props) => {
               name={"Update"}
               onClick={updateHandler}
               style={{ marginTop: "10px" }}
-              isDisable={loading}
+              isDisable={loading || !validateInputs()}
               isLoading={loading}
             />
           </div>

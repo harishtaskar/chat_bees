@@ -44,8 +44,8 @@ const UserComponent = ({ user, isActive = false }: Props) => {
 
   const removeConnectionHandler = useCallback(async (event: any) => {
     event.stopPropagation();
-    const response = await deleteRequest("/chat/delete-conversation", {
-      group_id: user.username,
+    const response = await deleteRequest("/chat/leave", {
+      user_id: user?._id,
     });
     if (response.res === "ok") {
       toast.success("Connection Closed");

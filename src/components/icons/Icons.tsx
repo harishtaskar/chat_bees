@@ -1,44 +1,30 @@
 import React from "react";
-import icon1 from "@/assets/icons/icon1.png";
-import icon2 from "@/assets/icons/icon2.png";
-import icon3 from "@/assets/icons/icon3.png";
-import icon4 from "@/assets/icons/icon4.png";
-import icon5 from "@/assets/icons/icon5.png";
-import icon6 from "@/assets/icons/icon6.png";
-import icon7 from "@/assets/icons/icon7.png";
-import icon8 from "@/assets/icons/icon8.png";
-import icon9 from "@/assets/icons/icon9.png";
-import icon10 from "@/assets/icons/icon10.png";
-import icon11 from "@/assets/icons/icon11.png";
-import icon12 from "@/assets/icons/icon12.png";
-import icon13 from "@/assets/icons/icon13.png";
-import icon14 from "@/assets/icons/icon14.png";
-import icon15 from "@/assets/icons/icon15.png";
-import icon16 from "@/assets/icons/icon16.png";
-import icon17 from "@/assets/icons/icon17.png";
-import icon18 from "@/assets/icons/icon18.png";
-import icon19 from "@/assets/icons/icon19.png";
-import icon20 from "@/assets/icons/icon20.png";
-import icon21 from "@/assets/icons/icon21.png";
-import icon22 from "@/assets/icons/icon22.png";
-import icon23 from "@/assets/icons/icon23.png";
-import icon24 from "@/assets/icons/icon24.png";
-import icon25 from "@/assets/icons/icon25.png";
-import icon26 from "@/assets/icons/icon26.png";
-import icon27 from "@/assets/icons/icon27.png";
-import icon28 from "@/assets/icons/icon28.png";
-import icon29 from "@/assets/icons/icon29.png";
-import icon30 from "@/assets/icons/icon30.png";
-import icon31 from "@/assets/icons/icon31.png";
-import icon32 from "@/assets/icons/icon32.png";
-import icon33 from "@/assets/icons/icon33.png";
-import icon34 from "@/assets/icons/icon34.png";
-import icon35 from "@/assets/icons/icon35.png";
-import icon36 from "@/assets/icons/icon36.png";
-import icon37 from "@/assets/icons/icon37.png";
-import icon38 from "@/assets/icons/icon38.png";
-import icon39 from "@/assets/icons/icon39.png";
-import icon40 from "@/assets/icons/icon40.png";
+import icon1 from "@/assets/icons/icon1.svg";
+import icon2 from "@/assets/icons/icon2.svg";
+import icon3 from "@/assets/icons/icon3.svg";
+import icon4 from "@/assets/icons/icon4.svg";
+import icon5 from "@/assets/icons/icon5.svg";
+import icon6 from "@/assets/icons/icon6.svg";
+import icon7 from "@/assets/icons/icon7.svg";
+import icon8 from "@/assets/icons/icon8.svg";
+import icon9 from "@/assets/icons/icon9.svg";
+import icon10 from "@/assets/icons/icon10.svg";
+import icon11 from "@/assets/icons/icon11.svg";
+import icon12 from "@/assets/icons/icon12.svg";
+import icon13 from "@/assets/icons/icon13.svg";
+import icon14 from "@/assets/icons/icon14.svg";
+import icon15 from "@/assets/icons/icon15.svg";
+// import icon16 from "@/assets/icons/icon16.svg";
+import icon17 from "@/assets/icons/icon17.svg";
+import icon18 from "@/assets/icons/icon18.svg";
+import icon19 from "@/assets/icons/icon19.svg";
+import icon20 from "@/assets/icons/icon20.svg";
+import icon21 from "@/assets/icons/icon21.svg";
+import icon22 from "@/assets/icons/icon22.svg";
+import icon23 from "@/assets/icons/icon23.svg";
+import icon24 from "@/assets/icons/icon24.svg";
+import icon25 from "@/assets/icons/icon25.svg";
+import icon26 from "@/assets/icons/icon26.svg";
 import "./index.scss";
 import Image from "next/image";
 
@@ -58,7 +44,7 @@ export const Icons = [
   { name: "icon13", icon: icon13 },
   { name: "icon14", icon: icon14 },
   { name: "icon15", icon: icon15 },
-  { name: "icon16", icon: icon16 },
+  // { name: "icon16", icon: icon16 },
   { name: "icon17", icon: icon17 },
   { name: "icon18", icon: icon18 },
   { name: "icon19", icon: icon19 },
@@ -69,20 +55,6 @@ export const Icons = [
   { name: "icon24", icon: icon24 },
   { name: "icon25", icon: icon25 },
   { name: "icon26", icon: icon26 },
-  { name: "icon27", icon: icon27 },
-  { name: "icon28", icon: icon28 },
-  { name: "icon29", icon: icon29 },
-  { name: "icon30", icon: icon30 },
-  { name: "icon31", icon: icon31 },
-  { name: "icon32", icon: icon32 },
-  { name: "icon33", icon: icon33 },
-  { name: "icon34", icon: icon34 },
-  { name: "icon35", icon: icon35 },
-  { name: "icon36", icon: icon36 },
-  { name: "icon37", icon: icon37 },
-  { name: "icon38", icon: icon38 },
-  { name: "icon39", icon: icon39 },
-  { name: "icon40", icon: icon40 },
 ];
 
 export type Props = {
@@ -92,11 +64,11 @@ export type Props = {
 };
 
 const Icon = ({ icon = "icon1", width = 50, height = 50 }: Props) => {
-  const currentIcon = Icons?.filter((item) => item.name === icon)[0] || icon1;
+  const currentIcon = Icons?.filter((item) => item.name === icon)[0];
   return (
     <div className="icon">
       <Image
-        src={currentIcon.icon}
+        src={currentIcon?.icon || icon1}
         width={width}
         height={height}
         alt="user_logo"

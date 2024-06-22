@@ -90,6 +90,8 @@ const Signin = () => {
             label="Password"
             password={true}
             value={input?.password}
+            minLength={8}
+            maxLength={22}
           />
           <PrimaryButton
             name={"Submit"}
@@ -116,6 +118,9 @@ const Signin = () => {
   } else {
     return (
       <div className="page">
+        <div className="logo_above_form">
+          <Logo />
+        </div>
         <Modal
           body={renderBody}
           closeBtn={false}

@@ -26,8 +26,20 @@ const Signup = () => {
   const router = useRouter();
 
   const onChange = useCallback((name: string, value: string | number) => {
+    if (name === "username" && typeof value === "string") {
+      const sanitizedValue = value.replace(/\s+/g, "").toLowerCase();
+      setInput((prev: any) => {
+        return { ...prev, [name]: sanitizedValue };
+      });
+    } else {
+      setInput((prev: any) => {
+        return { ...prev, [name]: value };
+      });
+    }
+  }, []);
+  const onDOBChange = useCallback((value: any) => {
     setInput((prev: any) => {
-      return { ...prev, [name]: value };
+      return { ...prev, dob: value };
     });
   }, []);
 
@@ -110,7 +122,7 @@ const Signup = () => {
               name="gender"
               onChange={selectHandler}
               label={"Gender"}
-              options={["male", "female"]}
+              options={["Male", "Female"]}
             />
           </div>
           <InputText
@@ -154,6 +166,9 @@ const Signup = () => {
 
   return (
     <div className="page">
+      <div className="logo_above_form">
+        <Logo />
+      </div>
       <Modal
         body={renderBody}
         closeBtn={false}

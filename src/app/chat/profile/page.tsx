@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import "./index.scss";
 import UserIcon from "@/components/icons/UserIcon";
 import { useSetRecoilState, useRecoilValue } from "recoil";

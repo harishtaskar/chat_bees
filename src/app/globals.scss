@@ -1,119 +1,124 @@
 :root {
-    --background: #f9fbfa;
-    --white: #ffffff;
-    --white-solid: #ffffff;
-    --active-li: rgba(0, 0, 0, 0.04);
-    --dark-background: #363740;
-    --text-color: #101010;
-    --text-color-2: #737373;
-    --text-color-3: #999999;
-    --second-border-color: #adadad;
-    --light-gray-1: #f3f3f3;
-    --light-gray-2: #f4f4f4;
-    --primary-color: #615EF0;
-    // --primary-color: #615EF0;
-    --primary-color-20: #605ef025;
-    --primary-color-50: #605ef081;
-    --primary-color-50: #03009b8, 130, 0.506;
-    --green-color: #2DC071;
-    --success-color: #76D8A3;
-    --red-color: #DF1E1E;
-    --muted-color: #BDBDBD;
-    --muted-border: #dddddd;
-    --skeleton-color: #eeeeee;
-    --secondary-color-1: #23856D;
-    --dark-background-color: #252B42;
-    --grayscale-gray: #9FA2B4;
-    --skeleton: #e2e5e7;
+  --background: #f9fbfa;
+  --white: #ffffff;
+  --white-solid: #ffffff;
+  --active-li: rgba(0, 0, 0, 0.04);
+  --dark-background: #363740;
+  --text-color: #101010;
+  --text-color-2: #737373;
+  --text-color-3: #999999;
+  --second-border-color: #adadad;
+  --light-gray-1: #f3f3f3;
+  --light-gray-2: #f4f4f4;
+  --primary-color: #615ef0;
+  // --primary-color: #615EF0;
+  --primary-color-20: #605ef025;
+  --primary-color-50: #605ef081;
+  --primary-color-50: #03009b8, 130, 0.506;
+  --green-color: #2dc071;
+  --success-color: #76d8a3;
+  --red-color: #df1e1e;
+  --muted-color: #bdbdbd;
+  --muted-border: #dddddd;
+  --skeleton-color: #eeeeee;
+  --secondary-color-1: #23856d;
+  --dark-background-color: #252b42;
+  --grayscale-gray: #9fa2b4;
+  --skeleton: #e2e5e7;
 }
 
 *:focus {
-    -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Remove focus outline */
 *:focus {
-    outline: none;
+  outline: none;
 }
 
 body {
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
-    user-select: none;
-    z-index: 1;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  user-select: none;
+  z-index: 1;
 }
 
 .main {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .loading {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-    border: 3px solid var(--text-color);
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border: 3px solid var(--text-color);
 }
 
 .loading {
-    box-sizing: border-box;
-    display: block;
-    width: 24px;
-    height: 24px;
-    border: 3px solid #fff;
-    border-radius: 50%;
-    animation: loading 800ms cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #fff #fff #ffffff40 #ffffff40;
+  box-sizing: border-box;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  animation: loading 800ms cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff #fff #ffffff40 #ffffff40;
 }
 
 .loading div:nth-child(1) {
-    animation-delay: -0.25s;
+  animation-delay: -0.25s;
 }
 
 .loading div:nth-child(2) {
-    animation-delay: -0.3s;
+  animation-delay: -0.3s;
 }
 
 .loading div:nth-child(3) {
-    animation-delay: -0.15s;
+  animation-delay: -0.15s;
 }
 
 @keyframes loading {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .horizontaldiv {
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .link {
-    border: none;
-    outline: none;
-    font-size: 16px;
-    margin-top: 4px;
-    font-weight: 500;
-    text-decoration: none;
-    color: var(--primary-color);
-    background-color: transparent;
-    cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  margin-top: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--primary-color);
+  background-color: transparent;
+  cursor: pointer;
 
-    @media (max-width: 840px) {
-        font-size: 14px;
-    }
+  @media (max-width: 840px) {
+    font-size: 14px;
+  }
+}
 
+.logo_above_form {
+  display: none;
+  @media (max-width: 840px) {
+    display: flex;
+  }
 }

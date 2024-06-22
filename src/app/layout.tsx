@@ -9,7 +9,7 @@ import ValidateDevice from "@/components/validations/ValidateDevice";
 import ValidateNetwork from "@/components/validations/ValidateNetwork";
 import "react-toastify/dist/ReactToastify.css";
 import { Slide, ToastContainer } from "react-toastify";
-import 'dotenv/config';
+import "dotenv/config";
 
 const inter = Inter({ subsets: ["latin"] });
 

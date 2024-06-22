@@ -20,7 +20,7 @@ type Props = {
   style?: CSSProperties;
   inputTextStyle?: CSSProperties;
   fileloading?: boolean;
-  defaultValue?: any,
+  defaultValue?: any;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   autoComplete?: "on" | "off";
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
@@ -48,7 +48,8 @@ const InputText = ({
   onKeyDown,
   max = 99999999999999,
   min = 0,
-  defaultValue } : Props) => {
+  defaultValue,
+}: Props) => {
   const [type, setType] = useState<string>(inputType || "text");
   const [warningState, setWarningState] = useState<string | undefined>("");
 
