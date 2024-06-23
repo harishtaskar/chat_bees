@@ -119,21 +119,6 @@ const UpdateProfile = ({ onClose }: Props) => {
               isLoading={loading}
             />
           </div>
-          <div className="horizontaldiv">
-            <button
-              className={"link"}
-              onClick={() => setActiveModal("change-password")}
-            >
-              Change Password
-            </button>
-            <button
-              className={"link"}
-              onClick={() => setActiveModal("delete-profile")}
-              style={{ color: "var(--red-color)" }}
-            >
-              Delete Profile
-            </button>
-          </div>
         </div>
       </div>
     );

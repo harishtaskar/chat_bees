@@ -8,12 +8,14 @@ import { usePathname } from "next/navigation";
 import Bee from "../../assets/images/bee.png";
 import MessagesPopup from "../shared/MessagesPopup";
 import ChatMessages from "../chat/ChatMessages";
+import Theme from "../shared/Theme";
 
 type Props = {};
 
 const Sidenav = ({}: Props) => {
   const msgRef = useRef<any>(null);
   const [popup, setPopup] = useState<boolean>(false);
+  const pathname = usePathname();
 
   // clicked outside of msgDiv
   useEffect(() => {
@@ -30,7 +32,6 @@ const Sidenav = ({}: Props) => {
     return () => global.window?.removeEventListener("click", handler);
   }, []);
 
-  const pathname = usePathname();
   return (
     <div className="sidenav">
       <div className="sidenav__logo">

@@ -64,13 +64,13 @@ const DeleteProfile = ({ onClose }: Props) => {
     return (
       <div className="body">
         <div className="body__update_form">
-          <span className="body__update_form__title">Delete Profile</span>
-          <span className="body__update_form__subtitle">
+          <span className="body__update_form__title">Deactivate Profile</span>
+          <span className="body__update_form__subtitle span">
             Type{" "}
             <a href="#" className={"body__update_form__subtitle"}>
               {user?.username}
             </a>{" "}
-            to delete your profile
+            to Deactivate your profile
           </span>
           <InputText
             id="confirmation"

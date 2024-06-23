@@ -10,6 +10,7 @@ interface IUser {
   password: string;
   salt: string;
   status?: number;
+  theme?: "dark" | "light";
 }
 
 interface IMessage {

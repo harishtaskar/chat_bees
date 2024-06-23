@@ -23,6 +23,7 @@
   -webkit-box-shadow: 1px 0px 6px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 1px 0px 6px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 1px 0px 6px 1px rgba(0, 0, 0, 0.05);
+  background-color: var(--background3);
 
   @media (max-width: 840px) {
     height: calc(85px - 20px);

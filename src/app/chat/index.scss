@@ -4,6 +4,7 @@
   height: 100vh;
   display: flex;
   align-items: flex-start;
+  background-color: var(--background);
 
   @media (max-width: 840px) {
     height: 93vh;
@@ -46,7 +47,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    border-left: 1px solid var(--muted-border);
+    border-left: 1px solid var(--muted-border2);
 
     @media (max-width: 840px) {
       height: calc(93vh - 65px);
@@ -68,6 +69,7 @@
         font-weight: 500;
         white-space: nowrap;
         font-family: sans-serif;
+        color: var(--text-color);
       }
     }
   }

@@ -58,7 +58,7 @@ const ChatMessages = ({ styles }: Props) => {
             setActiveModel("search-user");
           }}
         >
-          <i className="ri-add-circle-fill ri-2x" />
+          <i className="ri-add-circle-fill ri-2x span" />
         </button>
       </div>
       <ul className="messeges__list">

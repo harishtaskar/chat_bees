@@ -1,5 +1,7 @@
 :root {
   --background: #f9fbfa;
+  --background2: #f9fbfa;
+  --background3: #f9fbfa;
   --white: #ffffff;
   --white-solid: #ffffff;
   --active-li: rgba(0, 0, 0, 0.04);
@@ -20,11 +22,18 @@
   --red-color: #df1e1e;
   --muted-color: #bdbdbd;
   --muted-border: #dddddd;
+  --muted-border2: #dddddd;
   --skeleton-color: #eeeeee;
   --secondary-color-1: #23856d;
   --dark-background-color: #252b42;
   --grayscale-gray: #9fa2b4;
   --skeleton: #e2e5e7;
+
+  background-color: var(--background);
+}
+
+.span {
+  color: var(--text-color);
 }
 
 *:focus {
@@ -121,4 +130,46 @@ body {
   @media (max-width: 840px) {
     display: flex;
   }
+}
+
+.inputCheckBox[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.labelCheckBox {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 44px;
+  height: 28px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+.labelCheckBox:after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+.inputCheckBox:checked + label {
+  background: #0be85c;
+}
+
+.inputCheckBox:checked + label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+.labelCheckBox:active:after {
+  width: 38px;
 }

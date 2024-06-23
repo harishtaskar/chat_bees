@@ -74,7 +74,7 @@ const UserComponent = ({ user, isActive = false }: Props) => {
           {/* <Badge text={user?.iconIndex || 1} /> */}
           <i
             className="ri-more-2-fill"
-            style={{ display: "flex" }}
+            style={{ display: "flex", color: "var(--text-color)" }}
             onClick={(event: any) => {
               event.stopPropagation();
               setIsMenuActive((prev) => !prev);
