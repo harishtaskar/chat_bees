@@ -75,7 +75,7 @@ const SearchUser = ({ onClose }: Props) => {
             id="filter"
             onChange={inputChangeHandler}
             inputType="text"
-            placeHolder="🔎 Search by username or occupation..."
+            placeHolder="Search by username or occupation..."
             require={false}
             value={filter}
           />

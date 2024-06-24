@@ -39,7 +39,6 @@ const ChatMessages = ({ styles }: Props) => {
     };
     fetchUsers();
   }, [recallCAPI]);
-  console.log("connections==>", connections);
 
   const onUserClick = useCallback((user: IUser) => {
     setActiveUser(user);

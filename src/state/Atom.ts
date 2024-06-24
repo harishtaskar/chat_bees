@@ -20,7 +20,7 @@ export const allUsersAtom = atom<IUser[] | undefined>({
   default: undefined,
 });
 
-export const connectionsAtom = atom<IUser[] | undefined>({
+export const connectionsAtom = atom<any>({
   key: "connections-atom",
   default: undefined,
 });

@@ -5,7 +5,7 @@ import "./index.scss";
 import ChatNavbar from "@/components/navbar/ChatNavbar";
 import InputComponent from "@/components/chat/InputComponent";
 import ChatCanvas from "@/components/chat/ChatCanvas";
-import { messagesAtom } from "@/state/Atom";
+import { messagesAtom, userAtom } from "@/state/Atom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import ChatMessages from "@/components/chat/ChatMessages";
 import { activeUserAtom } from "@/state/Atom";
@@ -20,7 +20,8 @@ const Chat = ({}: Props) => {
   const { sendMessage } = useSocket();
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useRecoilState(messagesAtom);
-  const activeUser: IUser | undefined = useRecoilValue(activeUserAtom);
+  const activeUser: IUser | undefined | any = useRecoilValue(activeUserAtom);
+  const user: IUser | undefined = useRecoilValue(userAtom);
 
   const inputChangeHandler = useCallback((id: string, value: string) => {
     setMessage(value);
@@ -30,8 +31,8 @@ const Chat = ({}: Props) => {
     if (message?.trim() !== "") {
       sendMessage({
         content: message,
-        from_user: "harish.taskar",
-        conversation_id: "6665ec9ab5996575841bc49b",
+        from_user: user?.username || "",
+        conversation_id: activeUser?.conversation,
         status: 1,
         type: "text",
       });

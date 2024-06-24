@@ -55,6 +55,7 @@ const Theme = ({ id = "theme" }: Props) => {
         --second-border-color: #616161;
         --active-li: rgba(255, 255, 255, 0.15);
         --skeleton: #e2e5e753;
+        --primary-color-20: #b1aff95f;
       }`;
       const prevstyleTag = document.getElementById("styleID");
       if (!prevstyleTag) {

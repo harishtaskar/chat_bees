@@ -51,6 +51,7 @@ body {
   padding: 0px;
   user-select: none;
   z-index: 1;
+  background-color: var(--background);
 }
 
 .main {
@@ -58,6 +59,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--background);
 }
 
 .loading {

@@ -1,8 +1,8 @@
 "use client";
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Socket, io } from "socket.io-client";
-import { messagesAtom } from "./Atom";
+import { connectionsAtom, messagesAtom } from "./Atom";
 import { currentDateTime } from "@/utils/DateTime";
 
 type SocketProvider = {
@@ -29,6 +29,7 @@ const SocketProvider = ({ children }: SocketProvider) => {
   //@ts-ignore
   const [socket, setSocket] = useState<Socket>();
   const { date, time } = currentDateTime();
+  const connections = useRecoilValue(connectionsAtom);
 
   const sendMessage: ISocketContext["sendMessage"] = useCallback(
     (msg) => {
@@ -41,7 +42,7 @@ const SocketProvider = ({ children }: SocketProvider) => {
 
   const onMessageRec = useCallback((msg: string) => {
     const message = JSON.parse(msg) as IMessage;
-    console.log("New Message ==", message);
+    console.log("new msg recieved == ", message);
     setMessages((prev) => [
       ...prev,
       {
@@ -51,9 +52,23 @@ const SocketProvider = ({ children }: SocketProvider) => {
     ]);
   }, []);
 
+  const joinRoom = (conversation: string, socket: Socket) => {
+    if (conversation !== "") {
+      socket.emit("joinConversation", conversation);
+    }
+  };
+
   useEffect(() => {
     const _socket: Socket = io(URL);
-    console.log("URL", URL);
+
+    console.log("connections inside useEffect==> ", connections);
+
+    if (connections !== undefined && connections?.length > 0) {
+      connections?.forEach((connection: any) => {
+        joinRoom(connection?.conversation, _socket);
+      });
+    }
+
     _socket.on("message", onMessageRec);
     setSocket(_socket);
 
@@ -62,7 +77,7 @@ const SocketProvider = ({ children }: SocketProvider) => {
       _socket.disconnect();
       setSocket(undefined);
     };
-  }, []);
+  }, [connections]);
 
   return (
     <SocketContext.Provider value={{ sendMessage }}>
