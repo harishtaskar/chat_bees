@@ -173,6 +173,8 @@
   flex-direction: column;
   padding: 0px 16px;
   height: 100vh;
+  border-right: 1px solid var(--muted-border);
+  z-index: 9;
 
   @media (max-width: 840px) {
     width: calc(100% - 24px);
@@ -225,6 +227,8 @@
     }
 
     &__item {
+      list-style: none;
+      list-style-type: none;
       width: 100%;
       border-radius: 16px;
     }

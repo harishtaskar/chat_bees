@@ -1,8 +1,8 @@
 "use client";
 import useNetwork from "@/hooks/useNetwork";
-import { userAtom } from "@/state/Atom";
+import { themeAtom, userAtom } from "@/state/Atom";
 import React, { useCallback, useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 type Props = {
   id?: string;
@@ -10,33 +10,31 @@ type Props = {
 
 const Theme = ({ id = "theme" }: Props) => {
   const setUser = useSetRecoilState(userAtom);
-  const user = useRecoilValue(userAtom);
-  const [darkmode, setDarkmode] = useState(
-    user?.theme === "dark" ? true : false
-  );
+  const [theme, setTheme] = useRecoilState(themeAtom);
+
+  console.log("darkmode==>", theme);
 
   const { patchRequest } = useNetwork();
 
-  const onThemeChangeHandler = useCallback(
-    (event: any) => {
-      const updateProfile = async () => {
-        const response = await patchRequest("/user/update", {
-          update: { theme: !darkmode ? "dark" : "light" },
+  const onThemeChangeHandler = useCallback(() => {
+    const updateProfile = async () => {
+      const response = await patchRequest("/user/update", {
+        update: { theme: !theme ? "dark" : "light" },
+      });
+      if (response?.res === "ok") {
+        setTheme((prev: string) => {
+          return prev === "dark" ? "light" : "dark";
         });
-        if (response?.res === "ok") {
-          setDarkmode(!darkmode);
-          setUser(response.user);
-        }
-      };
-      updateProfile();
-    },
-    [darkmode]
-  );
+        setUser(response.user);
+      }
+    };
+    updateProfile();
+  }, [theme]);
 
   //Changing Theme
   useEffect(() => {
     const headTag = document.getElementsByTagName("head")[0];
-    if (darkmode) {
+    if (theme === "dark") {
       const styleTag = document.createElement("style");
       styleTag.id = "styleID";
 
@@ -67,7 +65,7 @@ const Theme = ({ id = "theme" }: Props) => {
         headTag.removeChild(styleTag);
       }
     }
-  }, [darkmode]);
+  }, [theme]);
 
   return (
     <>
@@ -76,7 +74,7 @@ const Theme = ({ id = "theme" }: Props) => {
         className="inputCheckBox "
         type="checkbox"
         id={id}
-        checked={darkmode}
+        checked={theme === "dark"}
         onChange={onThemeChangeHandler}
       />
       <label htmlFor={id} className="labelCheckBox">

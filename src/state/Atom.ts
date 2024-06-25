@@ -40,3 +40,8 @@ export const userProfileAtom = atom<IUser | undefined>({
   key: "userProfileAtom",
   default: undefined,
 });
+
+export const themeAtom = atom<string>({
+  key: "themeAtom",
+  default: "light",
+});

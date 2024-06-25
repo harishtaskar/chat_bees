@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import "../index.scss";
 import useAuth from "@/hooks/useAuth";
 import SplashScreen from "../loading";
@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import Logo from "@/components/shared/Logo";
 import illustration from "../../assets/images/Illustration.svg";
 import Image from "next/image";
+import Card from "@/components/shared/Card";
+import Theme from "@/components/shared/Theme";
 type Props = {
   children: React.ReactNode;
 };

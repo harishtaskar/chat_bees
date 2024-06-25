@@ -8,8 +8,9 @@ import RenderModal from "@/components/render-modal/RenderModal";
 import ValidateDevice from "@/components/validations/ValidateDevice";
 import ValidateNetwork from "@/components/validations/ValidateNetwork";
 import "react-toastify/dist/ReactToastify.css";
-import { Slide, ToastContainer } from "react-toastify";
 import "dotenv/config";
+import Theme from "@/components/shared/Theme";
+import LocalToaster from "@/components/shared/LocalToaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,25 +31,15 @@ export default function RootLayout({
     <html lang="en">
       <RecoilRootProvider>
         <body className={inter.className}>
+          <div className="hidden">
+            <Theme id="theme" />
+          </div>
           <RenderModal />
           <ValidateDevice />
           <SocketProvider>
             <main className="main">
               {children}
-              <ToastContainer
-                position="top-center"
-                autoClose={2000}
-                limit={1}
-                hideProgressBar
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-                transition={Slide}
-              />
+              <LocalToaster />
               <ValidateNetwork />
             </main>
           </SocketProvider>

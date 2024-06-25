@@ -9,6 +9,8 @@ import Bee from "../../assets/images/bee.png";
 import MessagesPopup from "../shared/MessagesPopup";
 import ChatMessages from "../chat/ChatMessages";
 import Theme from "../shared/Theme";
+import { useRecoilValue } from "recoil";
+import { activeUserAtom } from "@/state/Atom";
 
 type Props = {};
 
@@ -16,6 +18,9 @@ const Sidenav = ({}: Props) => {
   const msgRef = useRef<any>(null);
   const [popup, setPopup] = useState<boolean>(false);
   const pathname = usePathname();
+  const activeUser = useRecoilValue(activeUserAtom);
+
+  console.log("pathname", pathname);
 
   // clicked outside of msgDiv
   useEffect(() => {
@@ -50,9 +55,13 @@ const Sidenav = ({}: Props) => {
         <ul className="sidenav__links__list">
           <li className="sidenav__links__list__list_item">
             <Link
-              href={"/chat"}
+              href={
+                activeUser
+                  ? `/chat/messages/${activeUser?._id}`
+                  : `/chat/messages`
+              }
               className={`sidenav__links__list__list_item__link ${
-                pathname === "/chat" ? "active" : ""
+                pathname?.includes("messages") ? "active" : ""
               }`}
             >
               <i className="ri-wechat-line ri-xl" />{" "}
@@ -71,7 +80,11 @@ const Sidenav = ({}: Props) => {
               5
             </div>
             <Link
-              href={"/chat"}
+              href={
+                activeUser
+                  ? `/chat/messages/${activeUser?._id}`
+                  : `/chat/messages`
+              }
               className={`sidenav__links__list__list_item__link`}
             >
               <i className="ri-chat-3-line ri-xl" />{" "}

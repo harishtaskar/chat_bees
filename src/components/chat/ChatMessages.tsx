@@ -14,6 +14,8 @@ import {
 import useNetwork from "@/hooks/useNetwork";
 import SkeletonLoader from "../shared/SkeletonLoader";
 import { toast } from "react-toastify";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Props = {
   styles?: CSSProperties;
@@ -26,6 +28,7 @@ const ChatMessages = ({ styles }: Props) => {
   const [activeUser, setActiveUser] = useRecoilState(activeUserAtom);
   const [connections, setConnections] = useRecoilState(connectionsAtom);
   const { getRequest } = useNetwork();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -42,6 +45,7 @@ const ChatMessages = ({ styles }: Props) => {
 
   const onUserClick = useCallback((user: IUser) => {
     setActiveUser(user);
+    router.push(`/chat/messages/${user?._id}`);
   }, []);
 
   return (
@@ -64,7 +68,7 @@ const ChatMessages = ({ styles }: Props) => {
         {connections ? (
           connections?.map((user: IUser) => {
             return (
-              <li
+              <div
                 className="messeges__list__item"
                 onClick={() => onUserClick(user)}
                 key={user?._id}
@@ -73,7 +77,7 @@ const ChatMessages = ({ styles }: Props) => {
                   user={user}
                   isActive={user?._id === activeUser?._id}
                 />
-              </li>
+              </div>
             );
           })
         ) : (

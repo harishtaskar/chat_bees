@@ -1,5 +1,5 @@
 "use client";
-import { userAtom } from "@/state/Atom";
+import { themeAtom, userAtom } from "@/state/Atom";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { useSetRecoilState } from "recoil";
@@ -9,11 +9,10 @@ const useAuth = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const setUser = useSetRecoilState(userAtom);
   const router = useRouter();
+  const setTheme = useSetRecoilState(themeAtom);
   const { getRequest } = useNetwork();
 
   const loginUser = useCallback((token: string, user: any) => {
-    console.log("token response==>", token);
-    console.log("user response==>", user);
     try {
       if (token) {
         localStorage.setItem("Authorization", `Bearer ${token}`);
@@ -36,9 +35,9 @@ const useAuth = () => {
           const response = await getRequest("/user", {
             Authorization: token,
           });
-          if (response.res === "ok") {
-            setUser(response.user);
-            console.log(response.user);
+          if (response?.res === "ok") {
+            setUser(response?.user);
+            setTheme(response?.user?.theme);
             if (redirectToSignin) {
               router.push("/chat");
               setLoading(false);

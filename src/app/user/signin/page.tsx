@@ -10,8 +10,6 @@ import { toast } from "react-toastify";
 import useNetwork from "@/hooks/useNetwork";
 import useAuth from "@/hooks/useAuth";
 import SplashScreen from "@/app/loading";
-import illustration from "@/assets/images/Illustration.svg";
-import Image from "next/image";
 
 type Input = {
   username: string;

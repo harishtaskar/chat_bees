@@ -33,15 +33,6 @@ const UserComponent = ({ user, isActive = false }: Props) => {
     return () => global.window?.removeEventListener("click", handler);
   }, []);
 
-  const profileClickHandler = useCallback(
-    (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      event.stopPropagation();
-      setActiveModal("user-profile");
-      setUserProfileDetails(user);
-    },
-    [user]
-  );
-
   const removeConnectionHandler = useCallback(async (event: any) => {
     event.stopPropagation();
     const response = await deleteRequest("/chat/leave", {
@@ -55,6 +46,15 @@ const UserComponent = ({ user, isActive = false }: Props) => {
       toast.error(response.msg);
     }
   }, []);
+
+  const profileClickHandler = useCallback(
+    (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      event.stopPropagation();
+      setActiveModal("user-profile");
+      setUserProfileDetails(user);
+    },
+    [user]
+  );
 
   return (
     <div className={`user ${isActive ? "user__active" : ""}`}>
@@ -82,6 +82,12 @@ const UserComponent = ({ user, isActive = false }: Props) => {
           />
           {isMenuActive && (
             <div className={"user__container__second__menu"} ref={divRef}>
+              <span
+                className={"user__container__second__menu__item"}
+                onClick={profileClickHandler}
+              >
+                Profile
+              </span>
               <span
                 style={{ color: "var(--red-color)" }}
                 className={"user__container__second__menu__item"}
