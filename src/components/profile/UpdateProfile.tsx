@@ -4,8 +4,8 @@ import Modal from "../Modals/Modal";
 import InputText from "../shared/inputText";
 import PrimaryButton, { SecondaryButton } from "../shared/Buttons";
 import "./index.scss";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { modalAtom, userAtom } from "@/state/Atom";
+import { useRecoilState } from "recoil";
+import { userAtom } from "@/state/Atom";
 import SelectBox from "../shared/SelectBox";
 import useNetwork from "@/hooks/useNetwork";
 import { toast } from "react-toastify";
@@ -17,7 +17,6 @@ type Props = {
 const UpdateProfile = ({ onClose }: Props) => {
   const [user, setUser] = useRecoilState(userAtom);
   const { patchRequest, loading } = useNetwork();
-  const setActiveModal = useSetRecoilState(modalAtom);
 
   const inputChangeHandler = useCallback((name: string, value: any) => {
     setUser((prev: any) => {
@@ -101,7 +100,7 @@ const UpdateProfile = ({ onClose }: Props) => {
               name="gender"
               onChange={selectChangeHandler}
               label={"Gender"}
-              options={["male", "female"]}
+              options={["Male", "Female"]}
               value={user?.gender}
             />
           </div>

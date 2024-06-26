@@ -2,7 +2,12 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Socket, io } from "socket.io-client";
-import { connectionsAtom, messagesAtom } from "./Atom";
+import {
+  connectionsAtom,
+  messagesAtom,
+  recallConnectionAPI,
+  userAtom,
+} from "./Atom";
 import { currentDateTime } from "@/utils/DateTime";
 
 type SocketProvider = {
@@ -25,7 +30,9 @@ export const useSocket = () => {
 const URL = process.env.SERVER_URL || "http://localhost:8080";
 
 const SocketProvider = ({ children }: SocketProvider) => {
+  const user = useRecoilValue(userAtom);
   const setMessages = useSetRecoilState<any[]>(messagesAtom);
+  const setRecallConnAPI = useSetRecoilState(recallConnectionAPI);
   //@ts-ignore
   const [socket, setSocket] = useState<Socket>();
   const { date, time } = currentDateTime();
@@ -52,6 +59,10 @@ const SocketProvider = ({ children }: SocketProvider) => {
     ]);
   }, []);
 
+  const onJoinConversation = (conversation: string) => {
+    console.log("new conv joined==>", conversation);
+  };
+
   const joinRoom = (conversation: string, socket: Socket) => {
     if (conversation !== "") {
       socket.emit("joinConversation", conversation);
@@ -61,8 +72,6 @@ const SocketProvider = ({ children }: SocketProvider) => {
   useEffect(() => {
     const _socket: Socket = io(URL);
 
-    console.log("connections inside useEffect==> ", connections);
-
     if (connections !== undefined && connections?.length > 0) {
       connections?.forEach((connection: any) => {
         joinRoom(connection?.conversation, _socket);
@@ -70,9 +79,12 @@ const SocketProvider = ({ children }: SocketProvider) => {
     }
 
     _socket.on("message", onMessageRec);
+    _socket.on("joinConversation", onJoinConversation);
+    _socket.emit("userId", user?._id);
     setSocket(_socket);
 
     return () => {
+      _socket.off("joinConversation", onJoinConversation);
       _socket.off("message", onMessageRec);
       _socket.disconnect();
       setSocket(undefined);

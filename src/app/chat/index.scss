@@ -82,6 +82,7 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
+  border-left: 1px solid var(--muted-border);
 
   @media (max-width: 840px) {
     height: 86vh;

@@ -17,7 +17,7 @@ const useAuth = () => {
       if (token) {
         localStorage.setItem("Authorization", `Bearer ${token}`);
         setUser(user);
-        router.push("/chat");
+        router.push("/chat/messages");
       } else {
         localStorage.setItem("Authorization", "");
         router.push("/user/signin");
@@ -39,7 +39,7 @@ const useAuth = () => {
             setUser(response?.user);
             setTheme(response?.user?.theme);
             if (redirectToSignin) {
-              router.push("/chat");
+              router.push("/chat/messages");
               setLoading(false);
             }
           } else {

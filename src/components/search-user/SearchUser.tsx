@@ -28,7 +28,7 @@ const SearchUser = ({ onClose }: Props) => {
   const { postRequest } = useNetwork();
   const connections = useRecoilValue(connectionsAtom);
 
-  const connection_ids = connections?.map((user) => user?._id);
+  const connection_ids = connections?.map((user: any) => user?._id);
 
   useEffect(() => {
     const fetchUsers = async () => {
