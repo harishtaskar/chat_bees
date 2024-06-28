@@ -43,9 +43,9 @@ const ChatMessages = ({ styles }: Props) => {
     fetchUsers();
   }, [recallCAPI]);
 
-  const onUserClick = useCallback((user: IUser) => {
+  const onUserClick = useCallback((user: any) => {
     setActiveUser(user);
-    router.push(`/chat/messages/${user?._id}`);
+    router.push(`/chat/messages/${user?.conversation}`);
   }, []);
 
   return (

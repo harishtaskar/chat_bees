@@ -12,20 +12,17 @@ const Theme = ({ id = "theme" }: Props) => {
   const setUser = useSetRecoilState(userAtom);
   const [theme, setTheme] = useRecoilState(themeAtom);
 
-  console.log("darkmode==>", theme);
-
   const { patchRequest } = useNetwork();
 
   const onThemeChangeHandler = useCallback(() => {
     const updateProfile = async () => {
       const response = await patchRequest("/user/update", {
-        update: { theme: !theme ? "dark" : "light" },
+        update: { theme: theme === "dark" ? "light" : "dark" },
       });
       if (response?.res === "ok") {
-        setTheme((prev: string) => {
-          return prev === "dark" ? "light" : "dark";
-        });
-        setUser(response.user);
+        setUser(response?.user);
+        setTheme(response?.user?.theme);
+        global.window.localStorage.setItem("theme", response?.user?.theme);
       }
     };
     updateProfile();
@@ -34,7 +31,9 @@ const Theme = ({ id = "theme" }: Props) => {
   //Changing Theme
   useEffect(() => {
     const headTag = document.getElementsByTagName("head")[0];
-    if (theme === "dark") {
+    const localTheme =
+      global.window.localStorage.getItem("theme") || theme || "light";
+    if (localTheme === "dark") {
       const styleTag = document.createElement("style");
       styleTag.id = "styleID";
 

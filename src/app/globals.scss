@@ -11,7 +11,7 @@
   --text-color-3: #999999;
   --second-border-color: #adadad;
   --light-gray-1: #f3f3f3;
-  --light-gray-2: #f4f4f4;
+  --light-gray-2: #e9e8e8e6;
   --primary-color: #615ef0;
   // --primary-color: #615EF0;
   --primary-color-20: #605ef025;
@@ -68,6 +68,7 @@ body {
   width: 80px;
   height: 80px;
   border: 3px solid var(--text-color);
+  background-color: var(--background);
 }
 
 .loading {

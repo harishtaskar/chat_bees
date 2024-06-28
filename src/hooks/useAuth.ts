@@ -17,6 +17,7 @@ const useAuth = () => {
       if (token) {
         localStorage.setItem("Authorization", `Bearer ${token}`);
         setUser(user);
+        global.window.localStorage.setItem("user_id", user?._id);
         router.push("/chat/messages");
       } else {
         localStorage.setItem("Authorization", "");
@@ -38,6 +39,8 @@ const useAuth = () => {
           if (response?.res === "ok") {
             setUser(response?.user);
             setTheme(response?.user?.theme);
+            global.window.localStorage.setItem("theme", response?.user?.theme);
+            global.window.localStorage.setItem("user_id", response?.user?._id);
             if (redirectToSignin) {
               router.push("/chat/messages");
               setLoading(false);

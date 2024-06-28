@@ -3,13 +3,15 @@ import "./index.scss";
 
 type Props = {
   message: any;
+  userId: string;
   key: number;
 };
 
-const ChatDiv = ({ message, key }: Props) => {
+const ChatDiv = ({ message, key, userId }: Props) => {
+  console.log(userId, message.from_user);
   return (
     <div key={key} className="chat_msg">
-      {message.self ? (
+      {message?.from_user === userId ? (
         <div className={"chat_msg__div_self"}>
           <span className={"chat_msg__div_self__date"}>{message.date}</span>
           <div className={`chat_msg__div_self__message`}>

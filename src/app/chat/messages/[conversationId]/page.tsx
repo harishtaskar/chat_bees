@@ -15,30 +15,43 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import illustration from "@/assets/images/Illustration.svg";
 import "../../index.scss";
+import useFetch from "@/hooks/useFetch";
 
 type Props = {};
 
 const UserMessages = (props: Props) => {
-  const { userId } = useParams();
+  const { conversationId } = useParams();
   const { sendMessage } = useSocket();
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useRecoilState(messagesAtom);
   const user: IUser | undefined = useRecoilValue(userAtom);
   const connections: any = useRecoilValue(connectionsAtom);
 
+  const { loading: messageLoading, fetchMessages } = useFetch();
+
   const activeUser: any = connections?.filter(
-    (user: any) => user._id === userId
+    (user: any) => user?.conversation === conversationId
   )[0];
+
+  const fetchMsg = async () => {
+    const messages = await fetchMessages(conversationId.toString());
+    setMessages(messages);
+  };
+
+  useEffect(() => {
+    fetchMsg();
+  }, []);
 
   const inputChangeHandler = useCallback((id: string, value: string) => {
     setMessage(value);
   }, []);
 
   const sendInputMessage = useCallback(() => {
+    const userId = global.window.localStorage.getItem("user_id");
     if (message?.trim() !== "") {
       sendMessage({
         content: message,
-        from_user: user?.username || "",
+        from_user: user?._id || userId,
         conversation_id: activeUser?.conversation,
         status: 1,
         type: "text",
@@ -61,12 +74,13 @@ const UserMessages = (props: Props) => {
   const sendMsgHandler = useCallback(() => {
     sendInputMessage();
   }, [message]);
+
   return (
     <>
       {activeUser ? (
         <div className="chat_canvas">
           <ChatNavbar user={activeUser} />
-          <ChatCanvas messages={messages} />
+          <ChatCanvas messages={messages} isLoading={messageLoading} />
           <InputComponent
             onChange={inputChangeHandler}
             onSendMsg={sendMsgHandler}
