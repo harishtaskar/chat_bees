@@ -22,7 +22,9 @@ const ChatCanvas = ({ messages, isLoading }: Props) => {
   return (
     <div className="canvas" id="canvas">
       {isLoading ? (
-        <LoaderBar />
+        <div className="loading_chat_screen">
+          <LoaderBar />
+        </div>
       ) : (
         messages?.map((item: any, index: number) => {
           return (

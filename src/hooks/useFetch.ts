@@ -22,7 +22,6 @@ const useFetch = () => {
     } catch (error) {
       setLoading(false);
       setError(error);
-      console.log(error);
     }
   };
   return { loading, error, fetchMessages };

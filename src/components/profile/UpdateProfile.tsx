@@ -60,8 +60,6 @@ const UpdateProfile = ({ onClose }: Props) => {
     [user]
   );
 
-  console.log("date of birth ==>", user?.dob?.toString()?.substring(0, 10));
-
   const renderBody = useMemo(() => {
     return (
       <div className="body">

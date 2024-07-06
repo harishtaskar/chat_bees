@@ -20,8 +20,6 @@ const Sidenav = ({}: Props) => {
   const pathname = usePathname();
   const activeUser = useRecoilValue(activeUserAtom);
 
-  console.log("pathname", pathname);
-
   // clicked outside of msgDiv
   useEffect(() => {
     function handler(event: MouseEvent) {
@@ -57,7 +55,7 @@ const Sidenav = ({}: Props) => {
             <Link
               href={
                 activeUser
-                  ? `/chat/messages/${activeUser?._id}`
+                  ? `/chat/messages/${activeUser?.conversation}`
                   : `/chat/messages`
               }
               className={`sidenav__links__list__list_item__link ${

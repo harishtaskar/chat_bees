@@ -73,7 +73,7 @@ const Theme = ({ id = "theme" }: Props) => {
         className="inputCheckBox "
         type="checkbox"
         id={id}
-        checked={theme === "dark"}
+        checked={!(theme !== "dark")}
         onChange={onThemeChangeHandler}
       />
       <label htmlFor={id} className="labelCheckBox">

@@ -52,7 +52,6 @@ const Signin = () => {
           password: input.password,
         }
       );
-      console.log("login response==>", response);
       if (response.res === "ok") {
         loginUser(response.token, response.user);
         toast.success(response.msg);
@@ -65,7 +64,6 @@ const Signin = () => {
       }
     } catch (error) {
       toast.error("something went wrong, please try again later");
-      console.log(error);
     }
   }, [input]);
 

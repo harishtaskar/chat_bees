@@ -24,7 +24,6 @@ const DeleteProfile = ({ onClose }: Props) => {
   useEffect(() => {
     if (input === user?.username) {
       setDisable(false);
-      console.log(name);
     } else {
       setDisable(true);
     }

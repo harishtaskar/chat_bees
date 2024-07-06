@@ -31,7 +31,7 @@ export const recallConnectionAPI = atom<boolean>({
 });
 
 //user which is currently chating with us
-export const activeUserAtom = atom<IUser | undefined>({
+export const activeUserAtom = atom<IUser | undefined | any>({
   key: "activeUserAtom",
   default: undefined,
 });

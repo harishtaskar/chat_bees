@@ -23,9 +23,7 @@ const useAuth = () => {
         localStorage.setItem("Authorization", "");
         router.push("/user/signin");
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }, []);
 
   const authorizeUser = useCallback((redirectToSignin = true) => {

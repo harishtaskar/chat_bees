@@ -15,7 +15,7 @@ const ChatLayout = ({ children }: Props) => {
 
   useEffect(() => {
     authorizeUser();
-  }, []);
+  }, [authorizeUser]);
   if (loading) {
     return <SplashScreen />;
   } else {

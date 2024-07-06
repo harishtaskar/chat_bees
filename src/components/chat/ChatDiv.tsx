@@ -8,7 +8,6 @@ type Props = {
 };
 
 const ChatDiv = ({ message, key, userId }: Props) => {
-  console.log(userId, message.from_user);
   return (
     <div key={key} className="chat_msg">
       {message?.from_user === userId ? (

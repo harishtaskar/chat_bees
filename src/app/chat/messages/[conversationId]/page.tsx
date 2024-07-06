@@ -26,12 +26,9 @@ const UserMessages = (props: Props) => {
   const [messages, setMessages] = useRecoilState(messagesAtom);
   const user: IUser | undefined = useRecoilValue(userAtom);
   const connections: any = useRecoilValue(connectionsAtom);
+  const [activeUser, setActiveUser] = useState<any>(undefined);
 
   const { loading: messageLoading, fetchMessages } = useFetch();
-
-  const activeUser: any = connections?.filter(
-    (user: any) => user?.conversation === conversationId
-  )[0];
 
   const fetchMsg = async () => {
     const messages = await fetchMessages(conversationId.toString());
@@ -39,6 +36,13 @@ const UserMessages = (props: Props) => {
   };
 
   useEffect(() => {
+    if (!activeUser) {
+      setActiveUser(
+        connections?.filter(
+          (user: any) => user?.conversation === conversationId
+        )[0]
+      );
+    }
     fetchMsg();
   }, []);
 
@@ -92,7 +96,7 @@ const UserMessages = (props: Props) => {
         <>
           <div className="chat__chat_container__left">
             <span className="chat__chat_container__left__text">
-              Oop's User Not Found!
+              Oop&apos;s User Not Found!
             </span>
             <Image
               src={illustration}

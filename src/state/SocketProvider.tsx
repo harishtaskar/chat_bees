@@ -49,7 +49,6 @@ const SocketProvider = ({ children }: SocketProvider) => {
 
   const onMessageRec = useCallback((msg: string) => {
     const message = JSON.parse(msg) as IMessage;
-    console.log("new msg recieved == ", message);
     setMessages((prev) => [
       ...prev,
       {
