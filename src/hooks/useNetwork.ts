@@ -12,7 +12,7 @@ const useNetwork = () => {
     try {
       const token = global.window.localStorage.getItem("Authorization");
       setLoading(true);
-      const response = await axios.get(`${"http://localhost:8080/"}${path}`, {
+      const response = await axios.get(`${"http://localhost:8080"}${path}`, {
         headers: {
           ...headers,
           "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const useNetwork = () => {
         const token = global.window.localStorage.getItem("Authorization");
         setLoading(true);
         const response = await axios.post(
-          `${"http://localhost:8080/"}${path}`,
+          `${"http://localhost:8080"}${path}`,
           body,
           {
             headers: {
@@ -67,7 +67,7 @@ const useNetwork = () => {
         const token = global.window.localStorage.getItem("Authorization");
         setLoading(true);
         const response = await axios.patch(
-          `${"http://localhost:8080/"}${path}`,
+          `${"http://localhost:8080"}${path}`,
           body,
           {
             headers: {
@@ -95,17 +95,14 @@ const useNetwork = () => {
     try {
       const token = global.window.localStorage.getItem("Authorization");
       setLoading(true);
-      const response = await axios.delete(
-        `${"http://localhost:8080/"}${path}`,
-        {
-          headers: {
-            ...headers,
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: token,
-          },
-        }
-      );
+      const response = await axios.delete(`${"http://localhost:8080"}${path}`, {
+        headers: {
+          ...headers,
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: token,
+        },
+      });
       const data = await response.data;
       setData(data);
       return data;
