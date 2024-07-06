@@ -6,13 +6,14 @@ import {
   activeUserAtom,
   connectionsAtom,
   messagesAtom,
+  msgCountAtom,
   userAtom,
 } from "@/state/Atom";
 import { useSocket } from "@/state/SocketProvider";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import illustration from "@/assets/images/Illustration.svg";
 import "../../index.scss";
 import useFetch from "@/hooks/useFetch";
@@ -27,6 +28,7 @@ const UserMessages = (props: Props) => {
   const user: IUser | undefined = useRecoilValue(userAtom);
   const connections: any = useRecoilValue(connectionsAtom);
   const [activeUser, setActiveUser] = useState<any>(undefined);
+  const [msgCounts, setMsgCounts] = useRecoilState(msgCountAtom);
 
   const { loading: messageLoading, fetchMessages } = useFetch();
 
@@ -35,16 +37,28 @@ const UserMessages = (props: Props) => {
     setMessages(messages);
   };
 
+  const updateMessageCounts = () => {
+    const updatedMsgCounts = msgCounts.map((msgC) => {
+      if (msgC.conversation === conversationId) {
+        return {
+          ...msgC,
+          unread_msg_count: 0,
+        };
+      }
+      return msgC;
+    });
+    setMsgCounts(updatedMsgCounts);
+  };
+
   useEffect(() => {
-    if (!activeUser) {
-      setActiveUser(
-        connections?.filter(
-          (user: any) => user?.conversation === conversationId
-        )[0]
-      );
-    }
+    setActiveUser(
+      connections?.filter(
+        (user: any) => user?.conversation === conversationId
+      )[0]
+    );
+    updateMessageCounts();
     fetchMsg();
-  }, []);
+  }, [connections]);
 
   const inputChangeHandler = useCallback((id: string, value: string) => {
     setMessage(value);
@@ -84,7 +98,15 @@ const UserMessages = (props: Props) => {
       {activeUser ? (
         <div className="chat_canvas">
           <ChatNavbar user={activeUser} />
-          <ChatCanvas messages={messages} isLoading={messageLoading} />
+          <ChatCanvas
+            messages={
+              messages.filter((msg) => msg.conversation_id === conversationId)
+                .length !== 0
+                ? messages
+                : []
+            }
+            isLoading={messageLoading}
+          />
           <InputComponent
             onChange={inputChangeHandler}
             onSendMsg={sendMsgHandler}

@@ -1,14 +1,8 @@
 "use client";
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Socket, io } from "socket.io-client";
-import {
-  connectionsAtom,
-  messagesAtom,
-  recallConnectionAPI,
-  userAtom,
-} from "./Atom";
-import { currentDateTime } from "@/utils/DateTime";
+import { connectionsAtom, messagesAtom, msgCountAtom, userAtom } from "./Atom";
 
 type SocketProvider = {
   children: React.ReactNode;
@@ -32,10 +26,9 @@ const URL = process.env.SERVER_URL || "http://localhost:8080";
 const SocketProvider = ({ children }: SocketProvider) => {
   const user = useRecoilValue(userAtom);
   const setMessages = useSetRecoilState<any[]>(messagesAtom);
-  const setRecallConnAPI = useSetRecoilState(recallConnectionAPI);
+  const [msgCount, setMsgCount] = useRecoilState(msgCountAtom);
   //@ts-ignore
   const [socket, setSocket] = useState<Socket>();
-  const { date, time } = currentDateTime();
   const connections = useRecoilValue(connectionsAtom);
 
   const sendMessage: ISocketContext["sendMessage"] = useCallback(
@@ -47,15 +40,47 @@ const SocketProvider = ({ children }: SocketProvider) => {
     [socket]
   );
 
+  const updateMessageCount = (message: IMessage) => {
+    console.log("msgCount==>", msgCount);
+    console.log("msg==>", message);
+    const msgCounts = msgCount.filter(
+      (msgC) => msgC.conversation === message.conversation_id
+    );
+    if (msgCounts.length) {
+      const updatedMsgCount = msgCount.map((msgC) => {
+        if (
+          message.from_user.equals(msgC.user) &&
+          message.conversation_id.equals(msgC.conversation)
+        ) {
+          return {
+            ...msgC,
+            msg_count: msgC.msg_count + 1,
+            unread_msg_count: msgC.msg_count + 1,
+          };
+        }
+        return msgC;
+      });
+      setMsgCount(updatedMsgCount);
+    } else {
+      const newMsgCount: IMessageCount = {
+        conversation: message.conversation_id,
+        msg_count: 1,
+        unread_msg_count: 1,
+        user: message.from_user,
+      };
+      setMsgCount((prev) => [...prev, newMsgCount]);
+    }
+  };
+
   const onMessageRec = useCallback((msg: string) => {
     const message = JSON.parse(msg) as IMessage;
     setMessages((prev) => [
       ...prev,
       {
-        self: true,
         ...message,
       },
     ]);
+    updateMessageCount(message);
   }, []);
 
   const onJoinConversation = (conversation: string) => {

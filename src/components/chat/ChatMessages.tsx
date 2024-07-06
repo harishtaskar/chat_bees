@@ -8,6 +8,7 @@ import {
   activeUserAtom,
   connectionsAtom,
   modalAtom,
+  msgCountAtom,
   recallConnectionAPI,
   userAtom,
 } from "@/state/Atom";
@@ -29,6 +30,7 @@ const ChatMessages = ({ styles }: Props) => {
   const [connections, setConnections] = useRecoilState(connectionsAtom);
   const { getRequest } = useNetwork();
   const router = useRouter();
+  const msgCounts = useRecoilValue(msgCountAtom);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -66,7 +68,12 @@ const ChatMessages = ({ styles }: Props) => {
       </div>
       <ul className="messeges__list">
         {connections ? (
-          connections?.map((user: IUser) => {
+          connections?.map((user: any) => {
+            const msgCount = msgCounts.filter(
+              (msgC) =>
+                msgC.conversation === user?.conversation &&
+                activeUser?.conversation !== user?.conversation
+            )[0];
             return (
               <div
                 className="messeges__list__item"
@@ -76,6 +83,7 @@ const ChatMessages = ({ styles }: Props) => {
                 <UserComponent
                   user={user}
                   isActive={user?._id === activeUser?._id}
+                  unread_msg={msgCount?.unread_msg_count || 0}
                 />
               </div>
             );

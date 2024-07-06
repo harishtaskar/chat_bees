@@ -45,3 +45,8 @@ export const themeAtom = atom<string>({
   key: "themeAtom",
   default: "light",
 });
+
+export const msgCountAtom = atom<IMessageCount[]>({
+  key: "msgCountAtom",
+  default: [],
+});

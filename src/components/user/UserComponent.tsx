@@ -11,9 +11,10 @@ import { toast } from "react-toastify";
 type Props = {
   user: IUser;
   isActive?: boolean;
+  unread_msg?: number;
 };
 
-const UserComponent = ({ user, isActive = false }: Props) => {
+const UserComponent = ({ user, isActive = false, unread_msg }: Props) => {
   const [isMenuActive, setIsMenuActive] = useState<boolean>(false);
   const setRecallConnectionsAPI = useSetRecoilState(recallConnectionAPI);
   const setActiveModal = useSetRecoilState(modalAtom);
@@ -71,7 +72,7 @@ const UserComponent = ({ user, isActive = false }: Props) => {
           </span>
         </div>
         <div className={"user__container__second"}>
-          {/* <Badge text={user?.iconIndex || 1} /> */}
+          {unread_msg ? <Badge text={unread_msg} /> : <></>}
           <i
             className="ri-more-2-fill"
             style={{ display: "flex", color: "var(--text-color)" }}

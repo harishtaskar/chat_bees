@@ -21,3 +21,10 @@ interface IMessage {
   conversation_id: mongoose.Types.ObjectId;
   status?: number;
 }
+
+interface IMessageCount {
+  user: mongoose.Types.ObjectId;
+  conversation: mongoose.Types.ObjectId;
+  msg_count: number;
+  unread_msg_count: number;
+}
