@@ -27,7 +27,7 @@ export const useSocket = () => {
   return state;
 };
 
-const URL = process.env.SERVER_URL || "http://localhost:8080";
+const URL = process.env.SERVER_URL || "https://chat-bees-backend.onrender.com";
 
 const SocketProvider = ({ children }: SocketProvider) => {
   const user = useRecoilValue(userAtom);
