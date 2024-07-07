@@ -3,7 +3,6 @@ import ChatCanvas from "@/components/chat/ChatCanvas";
 import InputComponent from "@/components/chat/InputComponent";
 import ChatNavbar from "@/components/navbar/ChatNavbar";
 import {
-  activeUserAtom,
   connectionsAtom,
   messagesAtom,
   msgCountAtom,
@@ -99,12 +98,8 @@ const UserMessages = (props: Props) => {
         <div className="chat_canvas">
           <ChatNavbar user={activeUser} />
           <ChatCanvas
-            messages={
-              messages.filter((msg) => msg.conversation_id === conversationId)
-                .length !== 0
-                ? messages
-                : []
-            }
+            messages={messages}
+            conversation={`${conversationId}`}
             isLoading={messageLoading}
           />
           <InputComponent

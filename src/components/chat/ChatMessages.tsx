@@ -1,5 +1,5 @@
 "use client";
-import React, { CSSProperties, useEffect, useCallback } from "react";
+import React, { CSSProperties, useEffect, useCallback, useState } from "react";
 import UserComponent from "../user/UserComponent";
 import "./index.scss";
 import Badge from "../shared/Badge";
@@ -31,6 +31,14 @@ const ChatMessages = ({ styles }: Props) => {
   const { getRequest } = useNetwork();
   const router = useRouter();
   const msgCounts = useRecoilValue(msgCountAtom);
+  const [unreadMsg, setUnreadMsg] = useState(0);
+  useEffect(() => {
+    setUnreadMsg(
+      msgCounts?.reduce((total, currentMsg) => {
+        return total + currentMsg?.unread_msg_count;
+      }, 0)
+    );
+  }, [msgCounts]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -45,16 +53,19 @@ const ChatMessages = ({ styles }: Props) => {
     fetchUsers();
   }, [recallCAPI]);
 
-  const onUserClick = useCallback((user: any) => {
-    setActiveUser(user);
-    router.push(`/chat/messages/${user?.conversation}`);
-  }, []);
+  const onUserClick = useCallback(
+    (user: any) => {
+      setActiveUser(user);
+      router.push(`/chat/messages/${user?.conversation}`);
+    },
+    [setActiveUser]
+  );
 
   return (
     <div className="messeges" style={styles}>
       <div className="messeges__topbar">
         <div className="messeges__title">
-          Messeges <Badge text={23} />
+          Messeges {unreadMsg ? <Badge text={unreadMsg} /> : ""}
         </div>
         <button
           className="messeges__btn"

@@ -1,3 +1,5 @@
+import moment from "moment-timezone";
+
 export const currentDateTime = () => {
   const currentDate = new Date();
 
@@ -39,4 +41,11 @@ export const getUserAge = (dob: string) => {
   }
 
   return age;
+};
+
+export const getDateAndTime = (datetime: Date) => {
+  const istDatetime = moment.utc(datetime).tz("Asia/Kolkata");
+  const date = istDatetime.format("YYYY-MM-DD");
+  const time = istDatetime.format("HH:mm");
+  return { date, time };
 };

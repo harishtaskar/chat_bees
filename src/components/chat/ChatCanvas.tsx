@@ -8,9 +8,10 @@ import { userAtom } from "@/state/Atom";
 type Props = {
   messages: any;
   isLoading: boolean;
+  conversation: string;
 };
 
-const ChatCanvas = ({ messages, isLoading }: Props) => {
+const ChatCanvas = ({ messages, isLoading, conversation }: Props) => {
   const user = useRecoilValue(userAtom);
 
   useEffect(() => {
@@ -27,9 +28,11 @@ const ChatCanvas = ({ messages, isLoading }: Props) => {
         </div>
       ) : (
         messages?.map((item: any, index: number) => {
-          return (
-            <ChatDiv message={item} key={index} userId={user?._id || ""} />
-          );
+          if (conversation === item?.conversation_id) {
+            return (
+              <ChatDiv message={item} key={index} userId={user?._id || ""} />
+            );
+          }
         })
       )}
     </div>
