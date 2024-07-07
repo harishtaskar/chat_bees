@@ -13,7 +13,7 @@ const useNetwork = () => {
       const token = global.window.localStorage.getItem("Authorization");
       setLoading(true);
       const response = await axios.get(
-        `${"chat-bees-backend.onrender.com"}${path}`,
+        `${"https://chat-bees-backend.onrender.com"}${path}`,
         {
           headers: {
             ...headers,
@@ -40,7 +40,7 @@ const useNetwork = () => {
         const token = global.window.localStorage.getItem("Authorization");
         setLoading(true);
         const response = await axios.post(
-          `${"chat-bees-backend.onrender.com"}${path}`,
+          `${"https://chat-bees-backend.onrender.com"}${path}`,
           body,
           {
             headers: {
@@ -70,7 +70,7 @@ const useNetwork = () => {
         const token = global.window.localStorage.getItem("Authorization");
         setLoading(true);
         const response = await axios.patch(
-          `${"chat-bees-backend.onrender.com"}${path}`,
+          `${"https://chat-bees-backend.onrender.com"}${path}`,
           body,
           {
             headers: {
@@ -99,7 +99,7 @@ const useNetwork = () => {
       const token = global.window.localStorage.getItem("Authorization");
       setLoading(true);
       const response = await axios.delete(
-        `${"chat-bees-backend.onrender.com"}${path}`,
+        `${"https://chat-bees-backend.onrender.com"}${path}`,
         {
           headers: {
             ...headers,
